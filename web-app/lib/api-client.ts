@@ -45,11 +45,15 @@ async function apiRequest(endpoint: string, options: RequestOptions = {}) {
         const response = await fetch(url, config);
 
         if (response.status === 401) {
+            const errorData = await response.json().catch(() => ({}));
             // Force logout on unauthorized
             if (typeof window !== 'undefined') {
                 window.dispatchEvent(new CustomEvent('bbs_unauthorized'));
             }
-            return Promise.reject({ status: 401, message: 'Unauthorized' });
+            return Promise.reject({
+                status: 401,
+                message: errorData.error || 'Unauthorized'
+            });
         }
 
         if (!response.ok) {

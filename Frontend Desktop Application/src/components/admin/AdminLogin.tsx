@@ -78,9 +78,10 @@ export function AdminLogin({ onLogin, onBack }: AdminLoginProps) {
       // 3. Open Browser for Signing
       const webAppUrl = `http://localhost:3000/auth/remote-login?sessionId=${sessionId}`;
       // In Electron, we want to open this in the system's default browser
-      if (window.require) {
-        const { shell } = window.require('electron');
-        shell.openExternal(webAppUrl);
+      // @ts-ignore
+      if (window.electronAPI) {
+        // @ts-ignore
+        window.electronAPI.openExternal(webAppUrl);
       } else {
         window.open(webAppUrl, '_blank');
       }

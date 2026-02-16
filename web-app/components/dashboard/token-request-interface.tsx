@@ -252,9 +252,9 @@ export function TokenRequestInterface() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Token Purchase Packages</CardTitle>
+          <CardTitle>Buy NTKR Tokens</CardTitle>
           <CardDescription>
-            Upgrade your capabilities with NTKR tokens. Direct purchase via BNB on Testnet.
+            Purchase NTKR tokens directly using BNB on Testnet.
             Maximum wallet limit is 100 NTKR.
           </CardDescription>
         </CardHeader>

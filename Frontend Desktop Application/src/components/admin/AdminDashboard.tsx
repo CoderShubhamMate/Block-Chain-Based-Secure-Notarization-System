@@ -101,10 +101,9 @@ export function AdminDashboard({ onNavigate, isDarkMode }: AdminDashboardProps) 
 
       // Open System Browser
       // @ts-ignore
-      if (window.require) {
+      if (window.electronAPI) {
         // @ts-ignore
-        const { shell } = window.require('electron');
-        shell.openExternal(webAppUrl);
+        window.electronAPI.openExternal(webAppUrl);
       } else {
         window.open(webAppUrl, '_blank');
       }

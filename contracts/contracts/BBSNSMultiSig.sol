@@ -234,12 +234,10 @@ contract BBSNSMultiSig is ReentrancyGuard, EIP712 {
         require(block.timestamp >= transaction.submissionTime + timelockDelay, "MultiSig: Timelock active");
         require(transaction.signerVersion == signerVersion, "MultiSig: Signer set rotated since submission");
 
-        // Professional refinement: Mark executed AFTER call for cleaner semantics 
-        // (Locked by nonReentrant and notExecuted check)
+        transaction.executed = true;
+
         (bool success, ) = transaction.to.call{value: transaction.value}(transaction.data);
         require(success, "MultiSig: Transaction execution failed");
-
-        transaction.executed = true;
 
         emit TransactionExecuted(_txIndex, msg.sender, transaction.to, transaction.value);
     }
