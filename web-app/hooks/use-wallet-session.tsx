@@ -90,7 +90,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
     const fetchProfile = async () => {
         try {
-            const data = await apiClient.get('/me');
+            const data = await apiClient.get('/auth/me');
             setUser(data);
             await refreshBalances();
         } catch (err: any) {

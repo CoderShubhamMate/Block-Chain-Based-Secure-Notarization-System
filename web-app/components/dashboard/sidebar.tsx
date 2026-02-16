@@ -21,7 +21,7 @@ const menuItems = [
   { icon: Upload, label: "Upload", href: "/dashboard/upload" },
   { icon: History, label: "Versioning", href: "/dashboard/versioning" },
   { icon: CheckCircle, label: "Verification", href: "/dashboard/verification" },
-  { icon: Coins, label: "Token Request", href: "/dashboard/tokens" },
+  { icon: Coins, label: "Buy Tokens", href: "/dashboard/tokens" },
 ]
 
 export function Sidebar({ open, onOpenChange, collapsed = false, onCollapseChange }: SidebarProps) {

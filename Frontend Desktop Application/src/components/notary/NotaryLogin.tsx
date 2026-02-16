@@ -105,9 +105,9 @@ export function NotaryLogin({ onLogin, onBack }: NotaryLoginProps) {
       setAuthStatus("awaiting_browser");
 
       const webAppUrl = `http://localhost:3000/auth/remote-login?sessionId=${sessionId}`;
-      if (window.require) {
-        const { shell } = window.require('electron');
-        shell.openExternal(webAppUrl);
+      if (window.electronAPI) {
+        // @ts-ignore
+        window.electronAPI.openExternal(webAppUrl);
       } else {
         window.open(webAppUrl, '_blank');
       }

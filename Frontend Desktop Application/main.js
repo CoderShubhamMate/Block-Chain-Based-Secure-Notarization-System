@@ -46,12 +46,10 @@ function createMainWindow() {
     height: 800,
     title: "BBSNS - Secure Notarization Desktop",
     webPreferences: {
-      // SECURITY WARNING: nodeIntegration: true is a security risk.
-      // It is currently enabled to support legacy functionality.
-      // TODO: Phase 2 - Refactor to use preload scripts and contextIsolation: true
-      nodeIntegration: true,
-      contextIsolation: false, // SECURITY WARNING: Should be true in production
-      webSecurity: false // Allow CORS for dev - TODO: Remove in production
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
+      webSecurity: true // Re-enable for production-readiness
     }
   });
 
