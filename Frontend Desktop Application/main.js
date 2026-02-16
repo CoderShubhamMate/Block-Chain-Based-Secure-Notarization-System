@@ -49,6 +49,7 @@ function createMainWindow() {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: false, // Explicitly disable sandbox for reliable preload in dev
       webSecurity: true // Re-enable for production-readiness
     }
   });
