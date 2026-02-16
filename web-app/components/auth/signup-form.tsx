@@ -1,0 +1,896 @@
+"use client"
+
+import type React from "react"
+import { useState, useMemo, useRef, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
+import { Wallet, Eye, EyeOff, UploadCloud, CheckCircle2, FileText, ArrowLeft, ArrowRight, AlertCircle } from "lucide-react"
+
+type Step = 0 | 1 | 2 | 3
+
+const STEPS = ["Create Account", "National ID", "Liveness", "Connect Wallet"]
+
+const ACCEPTED_FILE_TYPES = ["application/pdf", "image/jpeg", "image/jpg", "image/png"]
+
+const isAcceptedFile = (file: File | null) => {
+  if (!file) return false
+  const byMime = ACCEPTED_FILE_TYPES.includes(file.type)
+  if (byMime) return true
+  const name = (file.name || "").toLowerCase()
+  return name.endsWith(".pdf") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png")
+}
+
+type FormDataState = {
+  fullName: string
+  email: string
+  password: string
+  confirmPassword: string
+  nationalIdText: string
+  nationalIdFile: File | null
+  livenessPassed: boolean
+  faceDescriptor: number[] | null
+  walletConnected: boolean
+}
+
+const Stepper = ({ step }: { step: Step }) => {
+  return (
+    <ol className="mb-6 grid grid-cols-4 gap-2">
+      {STEPS.map((label, idx) => {
+        const index = idx as Step
+        const isActive = step === index
+        const isDone = step > index
+        return (
+          <li
+            key={label}
+            className="flex items-center gap-2 rounded-md px-3 py-2 bg-muted"
+            aria-current={isActive ? "step" : undefined}
+          >
+            <div
+              className={
+                "h-5 w-5 rounded-full text-xs flex items-center justify-center " +
+                (isDone
+                  ? "bg-primary text-primary-foreground"
+                  : isActive
+                    ? "bg-primary/80 text-primary-foreground"
+                    : "bg-muted-foreground/20 text-foreground")
+              }
+            >
+              {isDone ? "✓" : idx + 1}
+            </div>
+            <span className={"text-xs font-medium " + (isActive ? "text-foreground" : "text-muted-foreground")}>
+              {label}
+            </span>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
+const StepCreateAccount = ({
+  formData,
+  handleInputChange,
+  showPassword,
+  showConfirmPassword,
+  onToggleShowPassword,
+  onToggleShowConfirmPassword,
+}: {
+  formData: FormDataState
+  handleInputChange: (field: keyof FormDataState, value: string) => void
+  showPassword: boolean
+  showConfirmPassword: boolean
+  onToggleShowPassword: () => void
+  onToggleShowConfirmPassword: () => void
+}) => (
+  <div className="grid gap-4">
+    <div className="space-y-2">
+      <Label htmlFor="fullName">Full Name</Label>
+      <Input
+        id="fullName"
+        placeholder="Jane Doe"
+        value={formData.fullName}
+        onChange={(e) => handleInputChange("fullName", e.target.value)}
+        required
+      />
+    </div>
+
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input
+        id="email"
+        type="email"
+        placeholder="jane@example.com"
+        value={formData.email}
+        onChange={(e) => handleInputChange("email", e.target.value)}
+        required
+      />
+    </div>
+
+    <div className="space-y-2">
+      <Label htmlFor="password">Password</Label>
+      <div className="relative">
+        <Input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          value={formData.password}
+          onChange={(e) => handleInputChange("password", e.target.value)}
+          required
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+          onClick={onToggleShowPassword}
+          aria-label={showPassword ? "Hide password" : "Show password"}
+        >
+          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+        </Button>
+      </div>
+      <p className="text-xs text-muted-foreground">Minimum 8 characters required</p>
+    </div>
+
+    <div className="space-y-2">
+      <Label htmlFor="confirmPassword">Confirm Password</Label>
+      <div className="relative">
+        <Input
+          id="confirmPassword"
+          type={showConfirmPassword ? "text" : "password"}
+          value={formData.confirmPassword}
+          onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+          required
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+          onClick={onToggleShowConfirmPassword}
+          aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+        >
+          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+        </Button>
+      </div>
+      <p className="text-xs text-muted-foreground">Must match your password</p>
+    </div>
+  </div>
+)
+
+const StepNationalId = ({
+  formData,
+  handleInputChange,
+  handleFileDrop,
+  handleFileSelect,
+  fileInputRef,
+}: {
+  formData: FormDataState
+  handleInputChange: (field: keyof FormDataState, value: string | File | null) => void
+  handleFileDrop: (e: React.DragEvent<HTMLDivElement>) => void
+  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void
+  fileInputRef: React.RefObject<HTMLInputElement>
+}) => (
+  <div className="grid gap-4">
+    <div className="space-y-2">
+      <Label htmlFor="nationalIdText">National ID (Text)</Label>
+      <Input
+        id="nationalIdText"
+        placeholder="Enter your National ID"
+        value={formData.nationalIdText}
+        onChange={(e) => handleInputChange("nationalIdText", e.target.value)}
+        required
+      />
+    </div>
+
+    <div className="space-y-2">
+      <Label>Upload National ID (PDF/JPG/PNG)</Label>
+      {!formData.nationalIdFile && formData.nationalIdText && (
+        <div className="mb-2 p-2 rounded bg-amber-500/10 border border-amber-500/20 flex items-center gap-2 text-[11px] text-amber-500">
+          <AlertCircle className="h-3 w-3" />
+          <span>Form data restored, but your <strong>National ID File</strong> must be re-uploaded.</span>
+        </div>
+      )}
+      <div
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleFileDrop}
+        onClick={() => fileInputRef.current?.click()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault()
+            fileInputRef.current?.click()
+          }
+        }}
+        className="rounded-lg border border-dashed p-6 text-center bg-card hover:bg-accent/40 transition-colors cursor-pointer"
+        role="button"
+        tabIndex={0}
+        aria-label="Drop your ID document here or click to browse"
+      >
+        <UploadCloud className="mx-auto h-6 w-6 text-muted-foreground" />
+        <p className="mt-2 text-sm text-muted-foreground">Drag & drop or click to browse</p>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png"
+          className="sr-only"
+          onChange={handleFileSelect}
+        />
+      </div>
+
+      {formData.nationalIdFile && (
+        <div className="mt-3 flex items-center gap-3 rounded-md border p-3">
+          <FileText className="h-4 w-4 text-muted-foreground" />
+          <div className="text-sm">
+            <p className="font-medium">{formData.nationalIdFile.name}</p>
+            <p className="text-muted-foreground">{(formData.nationalIdFile.size / 1024).toFixed(1)} KB</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+)
+
+import { FaceLivenessScan } from "./face-liveness-scan"
+
+const StepLiveness = ({
+  livenessPassed,
+  onPass,
+}: {
+  livenessPassed: boolean
+  onPass: (descriptor: number[]) => void
+}) => (
+  <div className="grid gap-4">
+    {!livenessPassed ? (
+      <FaceLivenessScan onPassed={onPass} />
+    ) : (
+      <div className="flex flex-col items-center gap-4 rounded-xl border border-primary/20 p-8 bg-primary/5 shadow-inner">
+        <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+          <CheckCircle2 className="h-10 w-10 text-primary" />
+        </div>
+        <div className="text-center">
+          <p className="text-lg font-semibold text-foreground">Identity Verified</p>
+          <p className="text-sm text-muted-foreground mt-1">Liveness check completed successfully.</p>
+        </div>
+      </div>
+    )}
+  </div>
+)
+
+const StepWallet = ({
+  walletConnected,
+  isLoading,
+  handleWalletConnect,
+}: {
+  walletConnected: boolean
+  isLoading: boolean
+  handleWalletConnect: () => void
+}) => (
+  <div className="grid gap-4">
+    <div className="space-y-2">
+      <Label>Blockchain Wallet</Label>
+      <div className="p-3 mb-2 rounded-lg border border-primary/20 bg-primary/5 text-[11px] text-muted-foreground flex items-start gap-2">
+        <AlertCircle className="h-3 w-3 mt-0.5 text-primary shrink-0" />
+        <span>
+          <strong>Identity Binding</strong>: Please select the MetaMask account containing your test BNB.
+          The popup will let you pick which account to link to this BBSNS ID.
+        </span>
+      </div>
+      <Button
+        type="button"
+        variant={walletConnected ? "secondary" : "outline"}
+        onClick={handleWalletConnect}
+        disabled={isLoading || walletConnected}
+        className="w-full"
+      >
+        <Wallet className="h-4 w-4 mr-2" />
+        {isLoading ? "Connecting..." : walletConnected ? "Wallet Connected" : "Connect Wallet"}
+      </Button>
+    </div>
+    {walletConnected && localStorage.getItem("connectedWallet") && (
+      <p className="text-xs text-muted-foreground">
+        Connected: {localStorage.getItem("connectedWallet")?.substring(0, 6)}...{localStorage.getItem("connectedWallet")?.substring(38)}
+      </p>
+    )}
+  </div>
+)
+
+export function SignUpForm() {
+  const router = useRouter()
+  const { toast } = useToast()
+
+  const [formData, setFormData] = useState<FormDataState>({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    nationalIdText: "",
+    nationalIdFile: null,
+    livenessPassed: false,
+    faceDescriptor: null,
+    walletConnected: false,
+  })
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [step, setStep] = useState<Step>(0)
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Restore form data from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('signupFormData')
+    const savedStep = localStorage.getItem('signupFormStep')
+
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData)
+        setFormData(prev => ({
+          ...prev,
+          fullName: parsed.fullName || "",
+          email: parsed.email || "",
+          password: parsed.password || "",
+          confirmPassword: parsed.confirmPassword || "",
+          nationalIdText: parsed.nationalIdText || "",
+          livenessPassed: parsed.livenessPassed || false,
+          faceDescriptor: parsed.faceDescriptor || null,
+          walletConnected: parsed.walletConnected || false,
+          // Note: File cannot be persisted in localStorage
+        }))
+
+        // Show toast to inform user their data was restored
+        if (parsed.fullName || parsed.email) {
+          toast({
+            title: "Form Data Restored",
+            description: "Your previous form data has been recovered.",
+            duration: 3000,
+          })
+        }
+      } catch (err) {
+        console.error("Failed to restore form data:", err)
+      }
+    }
+
+    if (savedStep) {
+      setStep(parseInt(savedStep) as Step)
+    }
+  }, [toast])
+
+  // Save form data to localStorage whenever it changes
+  useEffect(() => {
+    const dataToSave = {
+      fullName: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      nationalIdText: formData.nationalIdText,
+      livenessPassed: formData.livenessPassed,
+      faceDescriptor: formData.faceDescriptor,
+      walletConnected: formData.walletConnected,
+      // Note: File cannot be saved to localStorage
+    }
+
+    localStorage.setItem('signupFormData', JSON.stringify(dataToSave))
+    localStorage.setItem('signupFormStep', step.toString())
+  }, [formData, step])
+
+
+  const handleWalletConnect = async () => {
+    console.log("[WALLET] Starting connection process...");
+
+    if (!window.ethereum) {
+      console.error("[WALLET] MetaMask not found in window.ethereum");
+      toast({
+        title: "MetaMask Not Found",
+        description: "Please install MetaMask browser extension and refresh this page.",
+        variant: "destructive",
+      });
+      window.open("https://metamask.io/download/", "_blank");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { ethers } = await import("ethers");
+      const provider = new ethers.BrowserProvider(window.ethereum as any);
+
+      // BNB Testnet Configuration
+      const BNB_TESTNET_CHAIN_ID = '0x61'; // 97 in decimal
+      const BNB_TESTNET_CONFIG = {
+        chainId: BNB_TESTNET_CHAIN_ID,
+        chainName: 'BNB Smart Chain Testnet',
+        nativeCurrency: {
+          name: 'BNB',
+          symbol: 'tBNB',
+          decimals: 18
+        },
+        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+        blockExplorerUrls: ['https://testnet.bscscan.com']
+      };
+
+      console.log("[WALLET] Checking current network...");
+
+      // Get current chain ID
+      let currentChainId;
+      try {
+        currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+        console.log("[WALLET] Current chain ID:", currentChainId);
+      } catch (err) {
+        console.error("[WALLET] Failed to get chain ID:", err);
+      }
+
+      // Check if user is on BNB Testnet
+      if (currentChainId !== BNB_TESTNET_CHAIN_ID) {
+        console.log("[WALLET] Not on BNB Testnet, attempting to switch...");
+
+        try {
+          // Try to switch to BNB Testnet
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: BNB_TESTNET_CHAIN_ID }],
+          });
+          console.log("[WALLET] Successfully switched to BNB Testnet");
+        } catch (switchError: any) {
+          // This error code indicates that the chain has not been added to MetaMask
+          if (switchError.code === 4902) {
+            console.log("[WALLET] BNB Testnet not found, adding network...");
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [BNB_TESTNET_CONFIG],
+              });
+              console.log("[WALLET] BNB Testnet added successfully");
+            } catch (addError) {
+              console.error("[WALLET] Failed to add BNB Testnet:", addError);
+              toast({
+                title: "Network Setup Failed",
+                description: "Please manually add BNB Smart Chain Testnet to MetaMask.",
+                variant: "destructive",
+              });
+              setIsLoading(false);
+              return;
+            }
+          } else {
+            console.error("[WALLET] Failed to switch network:", switchError);
+            toast({
+              title: "Network Switch Required",
+              description: "Please switch to BNB Smart Chain Testnet in MetaMask.",
+              variant: "destructive",
+            });
+            setIsLoading(false);
+            return;
+          }
+        }
+      }
+
+      console.log("[WALLET] Requesting accounts with permission (wallet_requestPermissions)...");
+
+      // Task: Forced Account Selection
+      // By requesting eth_accounts permission, we force MetaMask to show the account picker
+      // even if the wallet is already connected.
+      try {
+        await window.ethereum.request({
+          method: 'wallet_requestPermissions',
+          params: [{ eth_accounts: {} }]
+        });
+      } catch (permErr: any) {
+        console.warn("[WALLET] Permission request failed or rejected:", permErr);
+        if (permErr.code === 4001) {
+          throw new Error("Account selection was cancelled. Please pick the correct account to proceed.");
+        }
+      }
+
+      let accounts: string[];
+      try {
+        accounts = await provider.send("eth_requestAccounts", []);
+        console.log("[WALLET] Accounts received:", accounts);
+      } catch (sendErr: any) {
+        console.warn("[WALLET] eth_requestAccounts failed, attempting fallback...", sendErr);
+        accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      }
+
+      if (!accounts || accounts.length === 0) {
+        throw new Error("No accounts found. Please unlock MetaMask and try again.");
+      }
+
+      const walletAddress = accounts[0];
+      console.log("[WALLET] Successfully bound to:", walletAddress);
+
+      localStorage.setItem("connectedWallet", walletAddress);
+      setFormData((prev) => ({ ...prev, walletConnected: true }));
+
+      toast({
+        title: "✅ Wallet Connected",
+        description: `Connected: ${walletAddress.substring(0, 6)}...${walletAddress.substring(38)}`,
+      });
+    } catch (err: any) {
+      console.error("[WALLET] Critical connection error:", err);
+
+      let errorMessage = "Failed to connect wallet.";
+      if (err.code === 4001) {
+        errorMessage = "Connection request was rejected in MetaMask.";
+      } else if (err.code === -32002) {
+        errorMessage = "Connection request already pending. Please check MetaMask.";
+      } else if (err.message?.includes("User rejected")) {
+        errorMessage = "You cancelled the connection request.";
+      } else {
+        errorMessage = err.message || "Unknown interaction error.";
+      }
+
+      toast({
+        title: "Connection Failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (field: keyof FormDataState, value: any) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+
+  const stepValid = useMemo(() => {
+    switch (step) {
+      case 0: {
+        return (
+          formData.fullName.trim().length >= 2 &&
+          isValidEmail(formData.email) &&
+          formData.password.length >= 8 &&
+          formData.password === formData.confirmPassword
+        )
+      }
+      case 1: {
+        return !!formData.nationalIdText.trim() && !!formData.nationalIdFile && isAcceptedFile(formData.nationalIdFile)
+      }
+      case 2: {
+        return formData.livenessPassed
+      }
+      case 3: {
+        return formData.walletConnected
+      }
+      default:
+        return false
+    }
+  }, [step, formData])
+
+  const showStepError = () => {
+    if (step === 0) {
+      if (!formData.fullName.trim()) {
+        toast({ title: "Registration Error", description: "Full name is required", variant: "destructive" })
+        return
+      }
+      if (!isValidEmail(formData.email)) {
+        toast({ title: "Registration Error", description: "Invalid email address format", variant: "destructive" })
+        return
+      }
+      if (formData.password.length < 8) {
+        toast({
+          title: "Registration Error",
+          description: "Password is too short. Use at least 8 characters.",
+          variant: "destructive",
+        })
+        return
+      }
+      if (formData.password !== formData.confirmPassword) {
+        toast({
+          title: "Registration Error",
+          description: "Passwords do not match.",
+          variant: "destructive",
+        })
+        return
+      }
+    }
+    if (step === 1) {
+      if (!formData.nationalIdText.trim()) {
+        toast({ title: "Registration Error", description: "National ID number is required", variant: "destructive" })
+        return
+      }
+      if (!formData.nationalIdFile) {
+        toast({
+          title: "Registration Error",
+          description: "Please re-upload your National ID document (files cannot be saved in browser cache).",
+          variant: "destructive"
+        })
+        return
+      }
+      if (!isAcceptedFile(formData.nationalIdFile)) {
+        toast({
+          title: "Registration Error",
+          description: "Unsupported file type. Only PDF, JPG, JPEG, or PNG are allowed.",
+          variant: "destructive",
+        })
+        return
+      }
+    }
+    if (step === 2) {
+      if (!formData.livenessPassed) {
+        toast({
+          title: "Setup Incomplete",
+          description: "Please complete the secure liveness scanner to continue.",
+          variant: "destructive",
+        })
+        return
+      }
+    }
+    if (step === 3) {
+      if (!formData.walletConnected) {
+        toast({
+          title: "Security Requirement",
+          description: "Please connect your blockchain wallet to link your identity.",
+          variant: "destructive",
+        })
+        return
+      }
+    }
+  }
+
+  const handleNext = () => {
+    if (!stepValid) {
+      showStepError()
+      return
+    }
+    setStep((s) => {
+      const next = Math.min(s + 1, 3)
+      return next as Step
+    })
+  }
+
+  const handleBack = () => {
+    setStep((s) => {
+      const prev = Math.max(s - 1, 0)
+      return prev as Step
+    })
+  }
+
+
+
+  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files?.[0]
+    if (!file) return
+    if (!isAcceptedFile(file)) {
+      toast({
+        title: "Unsupported file type",
+        description: "Only PDF, JPG, JPEG, or PNG are allowed.",
+        variant: "destructive",
+      })
+      return
+    }
+    handleInputChange("nationalIdFile", file)
+  }
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!isAcceptedFile(file)) {
+      toast({
+        title: "Unsupported file type",
+        description: "Only PDF, JPG, JPEG, or PNG are allowed.",
+        variant: "destructive",
+      })
+      return
+    }
+    handleInputChange("nationalIdFile", file)
+  }
+
+  const handleFinalSubmission = async () => {
+    // Task: Ensure we are actually on the final step
+    if (step !== 3) {
+      console.warn("[SIGNUP-GUARD] Final submission ignored for step:", step);
+      return;
+    }
+
+    if (!formData.fullName.trim()) {
+      toast({ title: "Submission Failed", description: "Final check failed: Full name is missing.", variant: "destructive" })
+      setStep(0);
+      return
+    }
+    if (!isValidEmail(formData.email)) {
+      toast({ title: "Submission Failed", description: "Final check failed: Invalid email format.", variant: "destructive" })
+      setStep(0);
+      return
+    }
+    if (formData.password.length < 8) {
+      toast({ title: "Submission Failed", description: "Final check failed: Password too short.", variant: "destructive" })
+      setStep(0);
+      return
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast({ title: "Submission Failed", description: "Final check failed: Passwords mismatch.", variant: "destructive" })
+      setStep(0);
+      return
+    }
+    if (!formData.nationalIdText.trim() || !formData.nationalIdFile) {
+      toast({ title: "Submission Failed", description: "Final check failed: National ID document missing.", variant: "destructive" })
+      setStep(1);
+      return
+    }
+    if (!formData.livenessPassed || !formData.faceDescriptor) {
+      toast({ title: "Submission Failed", description: "Final check failed: Liveness verification data missing.", variant: "destructive" })
+      setStep(2);
+      return
+    }
+    if (!formData.walletConnected) {
+      toast({ title: "Submission Failed", description: "Your wallet must be connected before you can create an account.", variant: "destructive" })
+      setStep(3);
+      return
+    }
+
+    setIsLoading(true)
+
+    let signature = ""
+
+    try {
+      console.log("[SIGNUP] Initiating signature flow...");
+
+      const walletAddress = localStorage.getItem("connectedWallet");
+      if (!walletAddress) throw new Error("Wallet not connected. Please go back and connect your wallet.");
+
+      // 1. Get Nonce (Strict Replay Protection)
+      console.log("[SIGNUP] Fetching nonce for address:", walletAddress);
+      const nonceRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/auth/nonce`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          wallet_address: walletAddress,
+          action: 'register'
+        }),
+      });
+
+      if (!nonceRes.ok) {
+        const errData = await nonceRes.json();
+        throw new Error(errData.error || "Failed to initialize secure registration session.");
+      }
+
+      const { message_template } = await nonceRes.json();
+      if (!message_template) throw new Error("Invalid server response (missing auth template)");
+
+      // 2. Sign Message
+      console.log("[SIGNUP] Prompting for signature in MetaMask...");
+      const { ethers } = await import("ethers")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const provider = new ethers.BrowserProvider((window as any).ethereum)
+      const signer = await provider.getSigner()
+
+      // Verify signer matches the address we used for the nonce
+      const currentSignerAddress = await signer.getAddress();
+      if (currentSignerAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+        console.warn("[SIGNUP] Signer mismatch!", { current: currentSignerAddress, expected: walletAddress });
+        // Update local storage and stop to allow user to re-submit with correct address if needed
+        localStorage.setItem("connectedWallet", currentSignerAddress);
+        throw new Error(`Wallet address changed in MetaMask to ${currentSignerAddress}. Please check your selection and try again.`);
+      }
+
+      signature = await signer.signMessage(message_template)
+      console.log("[SIGNUP] Signature acquired successfully.");
+
+    } catch (sigErr: any) {
+      console.error("[SIGNUP] Signature/Nonce failed:", sigErr)
+
+      let errorMsg = sigErr.message || "Failed to sign registration challenge.";
+      if (sigErr.code === 4001) errorMsg = "Signature request was rejected in MetaMask.";
+
+      toast({
+        title: "Security & Signature Error",
+        description: errorMsg,
+        variant: "destructive",
+      })
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/users/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email.toLowerCase().trim(),
+          password: formData.password,
+          nationalId: formData.nationalIdText,
+          walletAddress: localStorage.getItem("connectedWallet") || "0x0000000000000000000000000000000000000000",
+          faceDescriptor: formData.faceDescriptor,
+          signature
+          // Message is no longer sent; backend reconstructs it from nonce state
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Registration failed")
+      }
+
+      toast({
+        title: "Account Created",
+        description: "Your account has been created successfully. Please sign in.",
+      })
+
+      // Clear saved form data after successful signup
+      localStorage.removeItem('signupFormData')
+      localStorage.removeItem('signupFormStep')
+
+      router.push("/login")
+    } catch (err: any) {
+      toast({
+        title: "Registration Error",
+        description: err.message,
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      <Stepper step={step} />
+
+      {step === 0 && (
+        <StepCreateAccount
+          formData={formData as FormDataState}
+          handleInputChange={(field, value) => handleInputChange(field as keyof typeof formData, value)}
+          showPassword={showPassword}
+          showConfirmPassword={showConfirmPassword}
+          onToggleShowPassword={() => setShowPassword((s) => !s)}
+          onToggleShowConfirmPassword={() => setShowConfirmPassword((s) => !s)}
+        />
+      )}
+      {step === 1 && (
+        <StepNationalId
+          formData={formData as FormDataState}
+          handleInputChange={(field, value) => handleInputChange(field as keyof typeof formData, value)}
+          handleFileDrop={handleFileDrop}
+          handleFileSelect={handleFileSelect}
+          fileInputRef={fileInputRef}
+        />
+      )}
+      {step === 2 && (
+        <StepLiveness
+          livenessPassed={formData.livenessPassed}
+          onPass={(descriptor) =>
+            setFormData((p) => {
+              return { ...p, livenessPassed: true, faceDescriptor: descriptor }
+            })
+          }
+        />
+      )}
+      {step === 3 && (
+        <StepWallet
+          walletConnected={formData.walletConnected}
+          isLoading={isLoading}
+          handleWalletConnect={handleWalletConnect}
+        />
+      )}
+
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <Button type="button" variant="ghost" onClick={handleBack} disabled={step === 0} className="gap-2">
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </Button>
+
+        {step < 3 ? (
+          <Button
+            type="button"
+            onClick={handleNext}
+            className="gap-2"
+            disabled={!stepValid}
+          >
+            Next
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        ) : (
+          <Button type="button" onClick={handleFinalSubmission} className="gap-2" disabled={isLoading}>
+            Create Account
+            <CheckCircle2 className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+    </div>
+  )
+}
