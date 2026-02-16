@@ -1,0 +1,204 @@
+import { useState, useEffect } from "react";
+import { Lock, ShieldCheck, AlertCircle, Globe, CheckCircle2 } from "lucide-react";
+import { Button } from "../ui/button";
+import { Alert, AlertDescription } from "../ui/alert";
+import { toast } from "sonner";
+import api from "../../api";
+
+interface AdminLoginProps {
+  onLogin: () => void;
+  onBack: () => void;
+}
+
+export function AdminLogin({ onLogin, onBack }: AdminLoginProps) {
+  const [error, setError] = useState("");
+  const [connecting, setConnecting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "awaiting_browser" | "authorized" | "expired">("idle");
+  const [sessionId, setSessionId] = useState<string | null>(null);
+
+  // Polling logic
+  useEffect(() => {
+    let pollInterval: NodeJS.Timeout;
+
+    if (status === "awaiting_browser" && sessionId) {
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch(`${api.baseUrl}/auth/remote/status/${sessionId}`);
+          if (!res.ok) return;
+
+          const data = await res.json();
+          if (data.status === "authorized") {
+            setStatus("authorized");
+            localStorage.setItem("bbsns_token", data.token);
+            clearInterval(pollInterval);
+            toast.success("Login Successful!");
+            onLogin();
+          } else if (data.status === "expired" || data.status === "failed") {
+            setStatus("expired");
+            setError("Session expired or authorization failed. Please try again.");
+            clearInterval(pollInterval);
+          }
+        } catch (err) {
+          console.error("Polling error:", err);
+        }
+      }, 2000);
+    }
+
+    return () => {
+      if (pollInterval) clearInterval(pollInterval);
+    };
+  }, [status, sessionId, onLogin]);
+
+  const handleStartRemoteAuth = async () => {
+    setConnecting(true);
+    setError("");
+    setStatus("idle");
+
+    try {
+      // 1. Create Device ID if not exists
+      let device_id = localStorage.getItem("bbsns_device_id");
+      if (!device_id) {
+        device_id = "desktop_" + Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("bbsns_device_id", device_id);
+      }
+
+      // 2. Initialize Remote Session
+      const res = await fetch(`${api.baseUrl}/auth/remote/session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ device_id }),
+      });
+
+      if (!res.ok) throw new Error("Failed to initialize secure session");
+
+      const { sessionId } = await res.json();
+      setSessionId(sessionId);
+      setStatus("awaiting_browser");
+
+      // 3. Open Browser for Signing
+      const webAppUrl = `http://localhost:3000/auth/remote-login?sessionId=${sessionId}`;
+      // In Electron, we want to open this in the system's default browser
+      if (window.require) {
+        const { shell } = window.require('electron');
+        shell.openExternal(webAppUrl);
+      } else {
+        window.open(webAppUrl, '_blank');
+      }
+
+      toast.info("Browser opened. Please sign the challenge in your wallet.");
+
+    } catch (err: any) {
+      console.error(err);
+      const msg = err.message || "Failed to start login flow.";
+      setError(msg);
+      toast.error(msg);
+      setStatus("idle");
+    } finally {
+      setConnecting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0A2540] via-[#0D1B2A] to-[#0A2540] flex">
+      {/* Left Side - Visual */}
+      <div className="flex-1 flex items-center justify-center p-12">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-32 h-32 bg-emerald-500/20 rounded-3xl mb-8 shadow-2xl shadow-emerald-500/20">
+            <Lock className="w-16 h-16 text-emerald-400" />
+          </div>
+          <h2 className="text-emerald-400 mb-4">Secure Admin Access</h2>
+          <p className="text-gray-400 max-w-md">
+            Non-custodial login via Browser. Authenticate securely with MetaMask and return here to manage the network.
+          </p>
+        </div>
+      </div>
+
+      {/* Right Side - Login Form */}
+      <div className="flex-1 flex items-center justify-center p-12">
+        <div className="w-full max-w-md">
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 shadow-2xl">
+            <div className="mb-8 text-center sm:text-left">
+              <h1 className="text-emerald-400 mb-2">Admin Login</h1>
+              <p className="text-gray-400">Remote Blockchain Authentication</p>
+            </div>
+
+            <div className="space-y-6">
+
+              {/* Error Message */}
+              {error && (
+                <Alert variant="destructive" className="bg-red-500/10 border-red-500/50">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+
+              {/* Status Section */}
+              {status === "awaiting_browser" ? (
+                <div className="flex flex-col items-center justify-center p-6 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-4">
+                  <div className="w-12 h-12 border-4 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin" />
+                  <div className="text-center">
+                    <p className="text-emerald-400 font-medium">Awaiting Authorization</p>
+                    <p className="text-xs text-gray-400 mt-1">Please complete the signing in your browser...</p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setStatus("idle")}
+                    className="text-gray-500 hover:text-gray-300"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : status === "authorized" ? (
+                <div className="flex flex-col items-center justify-center p-6 bg-blue-500/5 border border-blue-500/20 rounded-xl space-y-3">
+                  <CheckCircle2 className="w-10 h-10 text-blue-400" />
+                  <p className="text-blue-300 font-medium">Session Authorized</p>
+                  <p className="text-xs text-gray-500">Redirecting to dashboard...</p>
+                </div>
+              ) : (
+                <Button
+                  onClick={handleStartRemoteAuth}
+                  disabled={connecting}
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl h-14 text-lg font-medium shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 group"
+                >
+                  {connecting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
+                      Initializing...
+                    </>
+                  ) : (
+                    <>
+                      <Globe className="mr-2 group-hover:scale-110 transition-transform" size={24} />
+                      Login via Browser
+                    </>
+                  )}
+                </Button>
+              )}
+
+              {/* Security Notice */}
+              <div className="flex items-start gap-3 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+                <ShieldCheck className="text-blue-400 mt-0.5 shrink-0" size={20} />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-blue-300">Browser Handshake</p>
+                  <p className="text-xs text-blue-400/80 leading-relaxed">
+                    This method uses a secure proxy to bridge Electron with your system browser, keeping your private keys isolated within the MetaMask environment.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Back Link */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={onBack}
+              className="text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              ← Back to role selection
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
