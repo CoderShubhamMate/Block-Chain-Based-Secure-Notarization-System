@@ -1,0 +1,786 @@
+﻿
+> my-v0-project@0.1.0 build
+> npm run build:css && next build
+
+
+> my-v0-project@0.1.0 build:css
+> tailwindcss -i ./styles/input.css -o ./public/globals.css --minify
+
+node.exe : Browserslist: caniuse-lite is outdated. Please run:
+At C:\Users\Lenovo\AppData\Roaming\npm\npm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/npm/bin/npm-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Browserslist: c...ed. Please run::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+Rebuilding...
+
+Done in 2979ms.
+  ▲ Next.js 14.2.25
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/20) ...
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/_not-found". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/governance/multisig/remote-confirm". Read more: 
+https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/activate". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/verification". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+   Generating static pages (5/20) 
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/documents". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/governance/remote-sign". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/login". Read more: https://nextjs.org/docs/messages/prerender-error
+
+   Generating static pages (10/20) 
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/upload". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/signup". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/admin". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+   Generating static pages (15/20) 
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/auth/remote-login". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/register-notary". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/tokens". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/tokens". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539) {
+  digest: '2256725016'
+}
+
+Error occurred prerendering page "/dashboard/versioning". Read more: https://nextjs.org/docs/messages/prerender-error
+
+Error: useWalletSession must be used within a WalletProvider
+    at d (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:12412)
+    at o (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\.next\server\chunks\471.js:1:3459)
+    at nj (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:46252)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:47572)
+    at nM (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:61547)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64547)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+    at nD (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:66681)
+    at nN (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:64854)
+    at nB (C:\Users\Lenovo\OneDrive\Desktop\Final_pro\BBSNS\Web-App\node_modules\next\dist\compiled\next-server\app-pag
+e.runtime.prod.js:12:67539)
+ ✓ Generating static pages (20/20)
+
+> Export encountered errors on following paths:
+	/_not-found/page: /_not-found
+	/activate/page: /activate
+	/auth/remote-login/page: /auth/remote-login
+	/dashboard/admin/page: /dashboard/admin
+	/dashboard/documents/page: /dashboard/documents
+	/dashboard/page: /dashboard
+	/dashboard/tokens/page: /dashboard/tokens
+	/dashboard/upload/page: /dashboard/upload
+	/dashboard/verification/page: /dashboard/verification
+	/dashboard/versioning/page: /dashboard/versioning
+	/governance/multisig/remote-confirm/page: /governance/multisig/remote-confirm
+	/governance/remote-sign/page: /governance/remote-sign
+	/login/page: /login
+	/page: /
+	/register-notary/page: /register-notary
+	/signup/page: /signup
+	/tokens/page: /tokens
+

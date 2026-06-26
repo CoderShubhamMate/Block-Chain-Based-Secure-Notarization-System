@@ -1,0 +1,9 @@
+const fs = require('fs');
+
+const path = 'c:\\Users\\Lenovo\\OneDrive\\Desktop\\Final_pro\\BBSNS\\compile_paper.js';
+const content = fs.readFileSync(path, 'utf8');
+const lines = content.split('\n');
+
+for (let i = 700; i < 740; i++) {
+    console.log(`${i + 1}: ${lines[i]}`);
+}

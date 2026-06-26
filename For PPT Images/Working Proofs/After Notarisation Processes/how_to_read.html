@@ -1,0 +1,396 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>BBSNS: On-Chain Transaction Hex Forensic Guide</title>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      <style>
+          @media print {
+              .page-break { page-break-after: always; break-after: page; }
+              body { background-color: #ffffff !important; color: #111111 !important; padding: 20px !important; }
+              .card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; box-shadow: none !important; margin-bottom: 40px !important; }
+              .header { background: none !important; color: #111111 !important; text-align: left !important; padding: 0 !important; border-bottom: 2px solid #10b981 !important; }
+              .header h1 { color: #111111 !important; }
+              .step-badge { background: #10b981 !important; color: #ffffff !important; }
+              table { color: #111111 !important; }
+              th { background-color: #f1f5f9 !important; color: #111111 !important; }
+              td code { color: #047857 !important; }
+          }
+          
+          body {
+              font-family: 'Inter', sans-serif;
+              background-color: #0b1120;
+              color: #f8fafc;
+              margin: 0;
+              padding: 0;
+              line-height: 1.6;
+          }
+          
+          .header {
+              background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+              padding: 60px 40px;
+              text-align: center;
+              border-bottom: 1px solid #10b981;
+              box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+          }
+          
+          .header h1 {
+              font-family: 'Outfit', sans-serif;
+              font-size: 3rem;
+              margin: 0 0 10px 0;
+              background: linear-gradient(to right, #34d399, #67e8f9);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+          }
+          
+          .header p {
+              font-size: 1.2rem;
+              color: #94a3b8;
+              max-width: 700px;
+              margin: 10px auto 0 auto;
+          }
+          
+          .container {
+              max-width: 1000px;
+              margin: 40px auto;
+              padding: 0 20px;
+          }
+          
+          .forensic-intro {
+              background: rgba(15, 23, 42, 0.6);
+              border: 1px solid rgba(16, 185, 129, 0.3);
+              backdrop-filter: blur(10px);
+              border-radius: 12px;
+              padding: 30px;
+              margin-bottom: 40px;
+              box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+          }
+          
+          .forensic-intro h2 {
+              font-family: 'Outfit', sans-serif;
+              color: #34d399;
+              margin-top: 0;
+          }
+          
+          .card {
+              background: rgba(15, 23, 42, 0.8);
+              border: 1px solid rgba(255, 255, 255, 0.05);
+              border-radius: 16px;
+              padding: 40px;
+              margin-bottom: 50px;
+              box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+              position: relative;
+              transition: border-color 0.3s ease;
+          }
+          
+          .card:hover {
+              border-color: rgba(16, 185, 129, 0.4);
+          }
+          
+          .step-badge {
+              position: absolute;
+              top: 25px;
+              left: 40px;
+              background: #10b981;
+              color: #0b1120;
+              font-family: 'Outfit', sans-serif;
+              font-weight: 700;
+              font-size: 0.85rem;
+              padding: 4px 12px;
+              border-radius: 9999px;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+          }
+          
+          .card h2 {
+              font-family: 'Outfit', sans-serif;
+              font-size: 2rem;
+              margin: 20px 0 20px 0;
+              color: #f8fafc;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+              padding-bottom: 10px;
+          }
+          
+          .image-wrapper {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #020617;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 8px;
+              padding: 10px;
+              margin-bottom: 25px;
+              overflow: hidden;
+          }
+          
+          .image-wrapper img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+          }
+          
+          .description {
+              font-size: 1.1rem;
+              color: #cbd5e1;
+              margin: 0;
+          }
+          
+          table {
+              border-collapse: collapse;
+              width: 100%;
+              margin: 25px 0;
+              font-size: 0.95rem;
+              background: rgba(2, 6, 23, 0.6);
+              border-radius: 8px;
+              overflow: hidden;
+          }
+          
+          th, td {
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              padding: 12px 16px;
+              text-align: left;
+          }
+          
+          th {
+              background-color: rgba(16, 185, 129, 0.1);
+              color: #34d399;
+              font-family: 'Outfit', sans-serif;
+              font-weight: 600;
+          }
+          
+          td code {
+              background-color: rgba(255, 255, 255, 0.05);
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-family: monospace;
+              color: #38bdf8;
+          }
+          
+          .hex-green {
+              color: #34d399 !important;
+              font-weight: 600;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="header">
+          <h1>BBSNS: Blockchain Forensic Hex Guide</h1>
+          <p>An elegant, step-by-step forensic guide showing how to read, navigate, and slice raw transaction Input bytecode to verify on-chain metadata.</p>
+      </div>
+      
+      <div class="container">
+          <div class="forensic-intro">
+              <h2>🔐 100% Client-Side Portable & Shareable Guide</h2>
+              <p>This HTML dashboard is built to be <b>completely offline-portable</b>. By sharing this folder containing both the screenshots and this HTML file, anyone on any device (Windows, macOS, Linux, Android, iOS) using any browser (Chrome, Edge, Safari, Firefox) can open it and view the exact step-by-step images and textual guides side-by-side without any issues.</p>
+              <p>Every parameter passed to our Solidity contract during a notarization call is formatted in 32-byte chunks (exactly 64 hex characters long). Slicing these parameters chunk-by-chunk is the absolute, mathematically irrefutable verification of on-chain document notarization.</p>
+          </div>
+          
+          
+    <div class="card page-break">
+      <div class="step-badge">Step 1</div>
+      <h2>Overview of Transaction Details on BscScan</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 193610.png" alt="Overview of Transaction Details on BscScan" />
+      </div>
+      <p class="description">The starting point of our manual audit. Enter your transaction hash <code>0x770c880947eea6aaf49cea19c3100d174b7469b2ba44ef4ea794223790a8e7f7</code> into BscScan. This screen verifies block confirmation, execution success, from/to address records, NTK token burn transfer details, and contains the raw <b>Input Data</b> payload box at the bottom.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 2</div>
+      <h2>Slicing Slot 0: Function Selector / Method ID</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191231.png" alt="Slicing Slot 0: Function Selector / Method ID" />
+      </div>
+      <p class="description">The first 4 bytes (8 hex characters) of the Input Data array: <code>0xc7faf1fe</code>. In the EVM, this Method ID acts as a unique signature that tells the smart contract to execute our <code>recordAction(bytes32,address,uint8,bytes32,bytes32,uint256,uint256,bytes)</code> function.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 3</div>
+      <h2>Slicing Slot 1: Document SHA-256 Cryptographic Hash</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191251.png" alt="Slicing Slot 1: Document SHA-256 Cryptographic Hash" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>f7d84bd8f2033d700b30c62b7f5354a4372859b82469060ba50f4cf8ed0383e5</code>. This represents the immutable digital fingerprint of the uploaded document, proving that the exact file content has been registered on-chain.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 4</div>
+      <h2>Slicing Slot 2: Owner Wallet Address</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191332.png" alt="Slicing Slot 2: Owner Wallet Address" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>000000000000000000000000a82a6fcbb2db5979a6fcca83c24317605580310e</code>. In Solidity, addresses are 20 bytes long. They are left-padded with 12 bytes (24 zeros) of spacing, leaving the final 40 characters as the owner's unique personal wallet address.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 5</div>
+      <h2>Slicing Slot 3: Notarization Status</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191423.png" alt="Slicing Slot 3: Notarization Status" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>0000000000000000000000000000000000000000000000000000000000000001</code>. The decimal value <code>1</code> represents <b>Legally Approved</b>, permanently setting the document status to active in contract storage (0 = Pending, 2 = Rejected).</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 6</div>
+      <h2>Slicing Slot 4: Notary Summary Hash</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191911.png" alt="Slicing Slot 4: Notary Summary Hash" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>6505fc5cd9a3df581e8c23ddd91f1f2c6d24a4edfef0f72ebbab1ddaf7fc73b2</code>. This is the Keccak-256 hash of the summary description written by the notary during approval, safeguarding the description contents from any retroactive modifications.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 7</div>
+      <h2>Slicing Slot 5: Rejection Reason Hash (Cryptographic Empty String Hash)</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 191937.png" alt="Slicing Slot 5: Rejection Reason Hash (Cryptographic Empty String Hash)" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a47</code>. Because Solidity expects a strict, static <code>bytes32</code> type for this field, the client cannot pass a null or variable-length empty string. Instead, for approved documents, the client hashes a completely blank string: <code>keccak256("")</code>. This outputs this exact cryptographic constant, mathematically proving that no rejection reason exists for this approved record.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 8</div>
+      <h2>Slicing Slot 6: Signature UNIX Timestamp</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192025.png" alt="Slicing Slot 6: Signature UNIX Timestamp" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>00000000000000000000000000000000000000000000000000000006a1075770</code>. Converting the hex value <code>0x6a107577</code> to decimal results in <code>1779512695</code>, which translates to the exact notarization epoch: <b>Saturday, May 23, 2026 7:04:55 PM UTC</b>.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 9</div>
+      <h2>Slicing Slot 7: Notary Nonce</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192523.png" alt="Slicing Slot 7: Notary Nonce" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>0000000000000000000000000000000000000000000000000000000000000000</code>. This represents the notary's sequential sequence transaction count (nonce <code>0</code>), which prevents signature replay attacks.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 10</div>
+      <h2>Slicing Slot 8: Dynamic Signature Offset Pointer</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192604.png" alt="Slicing Slot 8: Dynamic Signature Offset Pointer" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>0000000000000000000000000000000000000000000000000000000000000100</code>. In ABI encoding, dynamic arguments (like <code>bytes signature</code>) are placed at the end. This pointer says the signature payload starts exactly <code>0x100</code> bytes (256 decimal bytes) after the start of parameters.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 11</div>
+      <h2>Visualizing Viewport Layout & Wrapped Alignments</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192625.png" alt="Visualizing Viewport Layout & Wrapped Alignments" />
+      </div>
+      <p class="description">This viewport shows how BscScan handles text wrapping. Looking at the alignment highlights the logical transitions between static offsets and dynamic array allocations within the default browser viewport.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 12</div>
+      <h2>Slicing Slot 9: Dynamic Signature Byte Array Length</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192648.png" alt="Slicing Slot 9: Dynamic Signature Byte Array Length" />
+      </div>
+      <p class="description">Slicing the next 32 bytes (64 hex characters): <code>0000000000000000000000000000000000000000000000000000000000000041</code>. This describes the length of the dynamic array. The hex value <code>0x41</code> represents <b>65 bytes</b> in decimal, which is the standard size of an ECDSA signature.</p>
+    </div>
+    
+    <div class="card page-break">
+      <div class="step-badge">Step 13</div>
+      <h2>Slicing Slot 10: Cryptographic Notary Signature Bytes</h2>
+      <div class="image-wrapper">
+        <img src="./Screenshot 2026-05-23 192726.png" alt="Slicing Slot 10: Cryptographic Notary Signature Bytes" />
+      </div>
+      <p class="description">Slicing the final byte payload: <code>b89ba904f5a39665a7890b7d4fce51f0d9cea3d285050633675f0909cc9b90a534032aa7aec8bab0d9b16228b247ca5b7f3f657dd6647a3612615bf391a123b21b</code>. This is the 65-byte EIP-712 cryptographic signature (consisting of 32-byte <code>r</code>, 32-byte <code>s</code>, and 1-byte <code>v</code> values) proving authentic, authorized notary approval.</p>
+    </div>
+    
+          
+          <div class="card page-break">
+              <div class="step-badge">Reference Table</div>
+              <h2>EIP-712 Hex Data Layout Decoder</h2>
+              <p class="description">Use this comprehensive reference matrix to manually audit and slice the raw input bytes of the <code>recordAction</code> contract call:</p>
+              
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Offset (Bytes)</th>
+                          <th>Data Parameter</th>
+                          <th>Hex Chunk Value (Example)</th>
+                          <th>Decoded Meaning</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td><code>0x00</code></td>
+                          <td>Function Selector</td>
+                          <td class="hex-green"><code>0xc7faf1fe</code></td>
+                          <td>Identifies the Solidity <code>recordAction()</code> method.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x04</code></td>
+                          <td><code>docHash</code> (bytes32)</td>
+                          <td><code>f7d84bd8f2033d700b30c62b7f5354a4372859b82469060...</code></td>
+                          <td>SHA-256 unique digital fingerprint of the document.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x24</code></td>
+                          <td><code>ownerAddress</code> (address)</td>
+                          <td><code>000000000000000000000000a82a6fcbb2db5979a6fcca83...</code></td>
+                          <td>Left-padded personal wallet address of the document owner.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x44</code></td>
+                          <td><code>status</code> (uint8)</td>
+                          <td><code>000000000000000000000000000000000000000000000000...</code></td>
+                          <td><code>1</code> = Legally Approved on-chain.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x64</code></td>
+                          <td><code>summaryHash</code> (bytes32)</td>
+                          <td><code>6505fc5cd9a3df581e8c23ddd91f1f2c6d24a4edfef0f72...</code></td>
+                          <td>Keccak-256 hash of the notary's summary text.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x84</code></td>
+                          <td><code>rejectionReasonHash</code></td>
+                          <td><code>c5d2460186f7233c927e7db2dcc703c0e500b653ca82273...</code></td>
+                          <td><code>keccak256("")</code> constant. To satisfy Solidity's static bytes32 type layout, an approved document hashes a blank string, yielding this exact cryptographic constant.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0xa4</code></td>
+                          <td><code>timestamp</code> (uint256)</td>
+                          <td><code>000000000000000000000000000000000000000000000000...</code></td>
+                          <td>Decoded UNIX timestamp of the notary signature.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0xc4</code></td>
+                          <td><code>nonce</code> (uint256)</td>
+                          <td><code>000000000000000000000000000000000000000000000000...</code></td>
+                          <td>Notary sequential sequence ID to prevent replay attacks.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0xe4</code></td>
+                          <td><code>signature offset</code></td>
+                          <td><code>000000000000000000000000000000000000000000000000...</code></td>
+                          <td>Points to the starting byte index of signature bytes (Slot 9).</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x104</code></td>
+                          <td><code>signature length</code></td>
+                          <td><code>000000000000000000000000000000000000000000000000...</code></td>
+                          <td>Signature length: <code>0x41</code> = 65 bytes.</td>
+                      </tr>
+                      <tr>
+                          <td><code>0x124</code></td>
+                          <td><code>signature bytes</code></td>
+                          <td><code>b89ba904f5a39665a7890b7d4fce51f0d9cea3d285050633...</code></td>
+                          <td>The raw ECDSA signature bytes packed: <code>r</code>, <code>s</code>, <code>v</code>.</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </body>
+  </html>
+  

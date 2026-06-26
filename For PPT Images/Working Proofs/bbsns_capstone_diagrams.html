@@ -1,0 +1,3872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBSNS Capstone Technical Diagrams Package</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #2563eb;
+            --accent-hover: #3b82f6;
+            --border: #334155;
+            --card-bg: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 320px;
+            background-color: #0b0f19;
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 24px;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 800;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-hover);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 8px;
+        }
+
+        .nav-links a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            padding-left: 14px;
+        }
+
+        /* Main Workspace Content */
+        .content {
+            margin-left: 320px;
+            flex-grow: 1;
+            padding: 48px;
+            max-width: 1100px;
+            box-sizing: border-box;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 36px;
+            margin-bottom: 48px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin: 0 0 12px 0;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        
+        /* Image Details Toggle Styles */
+        .image-card-actions {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .expand-btn {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .expand-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        .image-details {
+            margin-top: 16px;
+            padding: 16px;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            text-align: left;
+            display: none;
+        }
+        .image-details.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Action Buttons */
+        .action-bar {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 64px;
+        }
+
+        section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        /* Diagram Containers */
+        .diagram-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+        }
+
+        .diagram-container:hover {
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+        }
+
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .diagram-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .diagram-desc {
+            margin: 6px 0 0 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Copy Buttons */
+        .copy-btn {
+            background-color: #0f172a;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Mermaid Render Canvas */
+        .mermaid-canvas {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            cursor: zoom-in;
+            transition: border-color 0.2s ease;
+        }
+
+        .mermaid-canvas:hover {
+            border-color: var(--accent);
+        }
+
+        .mermaid-canvas::after {
+            content: "🔍 Click to Zoom & Inspect";
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background-color: rgba(30, 41, 59, 0.9);
+            border: 1px solid #334155;
+            color: #f8fafc;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .mermaid-canvas:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mermaid-canvas pre {
+            margin: 0;
+        }
+
+        /* ZOOM MODAL WINDOW STYLE */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(15, 23, 42, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .zoom-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .zoom-modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+        }
+
+        .zoom-modal-content:active {
+            cursor: grabbing;
+        }
+
+        .zoom-modal-content svg {
+            max-width: none !important;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            display: flex;
+            gap: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 1010;
+        }
+
+        .zoom-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            color: white;
+            background-color: #334155;
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 1010;
+        }
+
+        .close-zoom:hover {
+            color: white;
+            background-color: #ef4444;
+            border-color: #ef4444;
+        }
+
+        /* -----------------------------------------
+           SECTION 9: PREMIUM INTERACTIVE MOCKUPS
+        ------------------------------------------- */
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .mockup-card {
+            background-color: #0b0f19;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mockup-bar {
+            background-color: #1e293b;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mockup-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .mockup-dot.red { background-color: var(--danger); }
+        .mockup-dot.yellow { background-color: var(--warning); }
+        .mockup-dot.green { background-color: var(--success); }
+
+        .mockup-title-tab {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        .mockup-body {
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Biometric Onboarding Mockup */
+        .bio-scanner-container {
+            width: 320px;
+            height: 380px;
+            background-color: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        .face-mesh-svg {
+            width: 240px;
+            height: 240px;
+            z-index: 10;
+        }
+
+        .face-mesh-path {
+            stroke: #3b82f6;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 4;
+            animation: dash 30s linear infinite;
+        }
+
+        .face-mesh-dots circle {
+            fill: #60a5fa;
+            filter: drop-shadow(0 0 2px #3b82f6);
+            animation: pulse-dot 2s infinite alternate;
+        }
+
+        @keyframes dash {
+            to { stroke-dashoffset: 1000; }
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .scanner-laser {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981, transparent);
+            box-shadow: 0 0 8px #10b981;
+            z-index: 12;
+            animation: scan 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes scan {
+            0% { top: 10%; }
+            100% { top: 85%; }
+        }
+
+        .scanner-status {
+            margin-top: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--success);
+            z-index: 15;
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            animation: flash-text 1s infinite alternate;
+        }
+
+        @keyframes flash-text {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .bio-stats-panel {
+            width: 320px;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .bio-stats-title {
+            color: var(--text-primary);
+            font-weight: 700;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .bio-stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .bio-stat-row span:last-child {
+            color: var(--accent-hover);
+        }
+
+        /* Certificate Mockup */
+        .cert-container {
+            width: 100%;
+            max-width: 680px;
+            background-color: #fcfbf7;
+            border: 12px double #b45309;
+            padding: 40px;
+            color: #1e293b;
+            box-sizing: border-box;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .cert-container::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 2px solid #b45309;
+            pointer-events: none;
+        }
+
+        .cert-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cert-header img {
+            width: 64px;
+            margin-bottom: 12px;
+        }
+
+        .cert-uni {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #78350f;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .cert-title {
+            font-size: 26px;
+            font-family: serif;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin: 12px 0;
+            letter-spacing: 0.02em;
+        }
+
+        .cert-sub {
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: #4b5563;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .cert-body {
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .cert-statement {
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .cert-doc-box {
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 6px;
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #374151;
+            margin-bottom: 24px;
+        }
+
+        .cert-seal-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .cert-seal-box {
+            text-align: center;
+            width: 120px;
+        }
+
+        .cert-seal-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 8px auto;
+            fill: #b45309;
+        }
+
+        .cert-sign-line {
+            border-top: 1px solid #4b5563;
+            padding-top: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #4b5563;
+        }
+
+        .cert-qr {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Multi-Sig Voting Board */
+        .vote-card {
+            width: 100%;
+            max-width: 500px;
+            background-color: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .vote-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vote-badge {
+            background-color: var(--warning);
+            color: #0f0500;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .vote-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .vote-progress-container {
+            margin-bottom: 20px;
+        }
+
+        .vote-progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .vote-bar-bg {
+            height: 8px;
+            background-color: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .vote-bar-fill {
+            height: 100%;
+            width: 66.6%;
+            background-color: var(--success);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .voter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 8px;
+            border-radius: 6px;
+            background-color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .voter-status {
+            font-weight: 700;
+        }
+
+        .voter-status.signed { color: var(--success); }
+        .voter-status.pending { color: var(--warning); }
+
+        .vote-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .vote-btn-interactive {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .vote-btn-approve {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .vote-btn-approve:hover {
+            background-color: #059669;
+        }
+
+        .vote-btn-reject {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .vote-btn-reject:hover {
+            background-color: #dc2626;
+        }
+
+        /* Print Media Target Optimization */
+        @media print {
+            .sidebar {
+                display: none !important;
+            }
+            .content {
+                margin-left: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .action-bar {
+                display: none !important;
+            }
+            .diagram-container {
+                box-shadow: none !important;
+                border: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+                margin-bottom: 60px !important;
+                page-break-after: always !important;
+            }
+            .diagram-header {
+                border-bottom: 1px solid #ccc !important;
+            }
+            .copy-btn {
+                display: none !important;
+            }
+            .mermaid-canvas {
+                border: none !important;
+                padding: 0 !important;
+                cursor: default !important;
+            }
+            .mermaid-canvas::after {
+                display: none !important;
+            }
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR FOR QUICK DOCK NAVIGATION -->
+    <aside class="sidebar">
+        <h2>BBSNS Diagrams</h2>
+        
+        <div class="nav-section">
+            <div class="nav-section-title">1. System Architecture</div>
+            <ul class="nav-links">
+                <li><a href="#d1" title="1. Overall System Architecture">1. Overall Architecture</a></li>
+                <li><a href="#d2" title="2. Deployment Topology">2. Deployment Topology</a></li>
+                <li><a href="#d3" title="3. Desktop Application Core">3. Desktop Core</a></li>
+                <li><a href="#d4" title="4. Blockchain Interaction Models">4. Blockchain Bridge</a></li>
+                <li><a href="#d5" title="5. Smart Contract Ecosystem">5. Smart Contracts</a></li>
+                <li><a href="#d6" title="6. Database Relationships">6. Database Relationships</a></li>
+                <li><a href="#d7" title="7. Zero-Trust Security Stack">7. Security Stack</a></li>
+                <li><a href="#d8" title="8. Authentication JWT Handshake">8. Auth JWT Handshake</a></li>
+                <li><a href="#d9" title="9. KYC Face Mesh Verification">9. Face Verification</a></li>
+                <li><a href="#d10" title="10. Token Economy (NTK + NTKR)">10. Token Economy</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">2. Flowcharts</div>
+            <ul class="nav-links">
+                <li><a href="#d11" title="11. User Registration Flow">11. User Registration</a></li>
+                <li><a href="#d12" title="12. Login + Wallet Signing Flow">12. Wallet Login</a></li>
+                <li><a href="#d13" title="13. S3 Document Upload Flow">13. S3 Upload</a></li>
+                <li><a href="#d14" title="14. Notary Validation Queue">14. Notary Validation</a></li>
+                <li><a href="#d15" title="15. Blockchain Anchoring Hash">15. Blockchain Anchoring</a></li>
+                <li><a href="#d16" title="16. PDF Verification Certificate">16. PDF Certificate</a></li>
+                <li><a href="#d17" title="17. Token Request Flow">17. Token Request</a></li>
+                <li><a href="#d18" title="18. Smart Contract Deployment">18. Contract Deployment</a></li>
+                <li><a href="#d19" title="19. Admin Approval Gate">19. Admin Approval</a></li>
+                <li><a href="#d20" title="20. Failure & Exception Route">20. Failure Route</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">3. UML Diagrams</div>
+            <ul class="nav-links">
+                <li><a href="#d21" title="21. Use Case Matrix">21. Use Cases</a></li>
+                <li><a href="#d22" title="22. Core Persistence Class Diagram">22. Class Diagram</a></li>
+                <li><a href="#d23" title="23. Sequence: Document Upload">23. Seq: Upload</a></li>
+                <li><a href="#d24" title="24. Sequence: Notary Verification">24. Seq: Verification</a></li>
+                <li><a href="#d25" title="25. Sequence: Wallet Login">25. Seq: Login</a></li>
+                <li><a href="#d26" title="26. Activity Matrix">26. Activity Diagram</a></li>
+                <li><a href="#d27" title="27. State: Document Life">27. State: Document</a></li>
+                <li><a href="#d28" title="28. State: User Validation">28. State: User Onboarding</a></li>
+                <li><a href="#d29" title="29. Modular Components">29. Component Diagram</a></li>
+                <li><a href="#d30" title="30. Packages Structure">30. Package Diagram</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">4. Data Flow Diagrams</div>
+            <ul class="nav-links">
+                <li><a href="#d31" title="31. Context Level DFD">31. Context Level DFD</a></li>
+                <li><a href="#d32" title="32. DFD Level 0 Overview">32. DFD Level 0</a></li>
+                <li><a href="#d33" title="33. DFD Level 1 Document Processing">33. DFD 1: Document</a></li>
+                <li><a href="#d34" title="34. DFD Level 1 Authentication System">34. DFD 1: Auth</a></li>
+                <li><a href="#d35" title="35. DFD Level 1 Blockchain Anchors">35. DFD 1: Blockchain</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">5. Data & Storage</div>
+            <ul class="nav-links">
+                <li><a href="#d36" title="36. Physical ER Diagram">36. Physical ERD</a></li>
+                <li><a href="#d37" title="37. Relationship Schema Mapping">37. Relationship Schema</a></li>
+                <li><a href="#d38" title="38. Audit Logging Stream">38. Audit Logs</a></li>
+                <li><a href="#d39" title="39. Transaction Confirmation Steps">39. Tx Confirmation</a></li>
+                <li><a href="#d40" title="40. Private S3 Vault Isolation">40. AWS S3 Flow</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">6. Project Management</div>
+            <ul class="nav-links">
+                <li><a href="#d41" title="41. Compilation Dependencies">41. Dependencies</a></li>
+                <li><a href="#d42" title="42. Iterative Agile Sprints">42. Dev Workflow</a></li>
+                <li><a href="#d43" title="43. CI/CD Pipeline Automations">43. CI/CD Flow</a></li>
+                <li><a href="#d44" title="44. Production Git Branching">44. Branch Strategy</a></li>
+                <li><a href="#d45" title="45. Tiered Automated Testing Matrix">45. Testing Pipeline</a></li>
+                <li><a href="#d46" title="46. Breaker Recovery Mitigation">46. Exception Handling</a></li>
+                <li><a href="#d47" title="47. Health Dashboard Tracing">47. Trace Logging</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">7. Security & Trust</div>
+            <ul class="nav-links">
+                <li><a href="#d48" title="48. Biometric step-up MFA">48. Multi-Factor Auth</a></li>
+                <li><a href="#d49" title="49. Access Policy (RBAC) Guard">49. RBAC Policy</a></li>
+                <li><a href="#d50" title="50. Validation Core check">50. Signature Validator</a></li>
+                <li><a href="#d51" title="51. Watermark Detection Flow">51. Tamper Detection</a></li>
+                <li><a href="#d52" title="52. Verification QR coordinate resolver">52. QR Coordinates</a></li>
+                <li><a href="#d53" title="53. Solidity contract modifiers check">53. Solidity Modifiers</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">8. Slide Visuals</div>
+            <ul class="nav-links">
+                <li><a href="#d54" title="54. Executive Summary Block">54. Exec Architecture</a></li>
+                <li><a href="#d55" title="55. One-page complete workflow">55. Single Page Life</a></li>
+                <li><a href="#d56" title="56. Simple Viva helper slide">56. Simple Viva Flow</a></li>
+                <li><a href="#d57" title="57. Transaction Proof anchoring">57. Proof anchoring</a></li>
+                <li><a href="#d58" title="58. Final Trust validation">58. Trust Flow</a></li>
+ 
+                  <li><a href="#d59" title="59. Governance: Admin Promotion Flow">59. Admin Promotion Flow</a></li>
+                         </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">9. High-Fidelity UI Mockups</div>
+            <ul class="nav-links">
+                <li><a href="#m1">1. Face Mesh KYC Scanner</a></li>
+                <li><a href="#m2">2. Notarization Certificate</a></li>
+                <li><a href="#m3">3. Governance Multi-Sig Board</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- CONTENT DISPLAY WORKSPACE -->
+    <main class="content">
+        <header>
+            <h1>BBSNS Technical Diagram Package</h1>
+            <p>Capstone Project Engineering Documentation Model. Fully updated to resolve all syntax constraints and equipped with click-to-zoom inspect modes. Drag or wheel-scroll zoomed SVGs for extreme readability.</p>
+            
+            <div class="action-bar">
+                <button class="btn" onclick="window.print();">Print to PDF</button>
+                <button class="btn btn-secondary" onclick="toggleSidebar();">Toggle Nav Sidebar</button>
+                <button class="btn btn-secondary" onclick="exportToMermaidLive();">Mermaid Live Editor</button>
+            </div>
+        </header>
+
+        <!-- SECTION 1 -->
+        <section>
+            <h2>Section 1 — System Architecture</h2>
+
+            <div class="diagram-container" id="d1">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">1. Overall System Architecture</h3>
+                        <p class="diagram-desc">Illustrates the hybrid architecture of BBSNS, showcasing Web Client, Desktop Application, Spring Boot backend, local PostgreSQL, and decentralized BNB Smart Chain nodes.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c1')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c1">
+graph TB
+    subgraph "Client Layer"
+        WebClient["Web Client (React + Web3.js)"]
+        ElectronApp["Electron Desktop Shell"]
+        subgraph "Electron Container"
+            DesktopUI["Desktop App UI (React)"]
+            LocalJava["Local Java Wrapper Core"]
+            LocalWeb3j["Web3j Module"]
+        end
+    end
+
+    subgraph "Gateway & Middleware Layer"
+        ReverseProxy["Nginx API Gateway / SSL Proxy"]
+        SpringBootAPI["Spring Boot API Engine"]
+        MFAEngine["MFA / Face Verification Module"]
+    end
+
+    subgraph "Persistence Layer"
+        PostgresDB[("PostgreSQL Database")]
+        StorageS3["AWS S3 Secure Vault"]
+    end
+
+    subgraph "Decentralized Trust Layer"
+        BNBNode["BNB Chain Testnet Node"]
+        subgraph "Smart Contract Ecosystem"
+            DocRegistry["DocumentRegistry Contract"]
+            NotaryReg["NotaryRegistry Contract"]
+            NTKToken["NTK Protocol Token Contract"]
+            NTKRToken["NTKR Reputation Contract"]
+            MultiSig["Governance MultiSig"]
+        end
+    end
+
+    WebClient -->|HTTPS REST| ReverseProxy
+    WebClient -->|JSON-RPC| BNBNode
+    DesktopUI -->|Inter-Process Bridge| LocalJava
+    LocalJava -->|REST localhost:8080| SpringBootAPI
+    LocalWeb3j -->|JSON-RPC| BNBNode
+    ReverseProxy -->|Forward Proxy| SpringBootAPI
+    SpringBootAPI -->|Query/Write| PostgresDB
+    SpringBootAPI -->|Identity Check| MFAEngine
+    SpringBootAPI -->|Store signed documents| StorageS3
+    SpringBootAPI -->|Relayed Transactions| BNBNode
+    BNBNode --> DocRegistry
+    BNBNode --> NotaryReg
+    BNBNode --> NTKToken
+    BNBNode --> NTKRToken
+    BNBNode --> MultiSig
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d2">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">2. Deployment Topology Architecture</h3>
+                        <p class="diagram-desc">Demonstrates the network topology, hosting structure, firewalls, and node arrangements for production deployment.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c2')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c2">
+graph TD
+    UserClient["Document Owner Browser"]
+    NotaryClient["Notary Desktop Instance"]
+    AdminConsole["Admin Secure Console"]
+
+    subgraph "Public Cloud DMZ (AWS)"
+        Proxy["AWS Route 53 DNS + CloudFront CDN"]
+        NginxGateway["Nginx Reverse Proxy & SSL Term"]
+    end
+
+    subgraph "Private Application Subnet"
+        APICluster["Spring Boot App Node Cluster"]
+        WorkerService["Background Sync / Scavenger Worker Node"]
+    end
+
+    subgraph "Private Database Subnet"
+        DBInstance[("PostgreSQL Primary DB")]
+        S3Bucket["AWS S3 Bucket (Private Access Roles)"]
+    end
+
+    subgraph "Decentralized Web3 Network"
+        BNBProvider["Decentralized RPC Endpoint (BSC Testnet)"]
+    end
+
+    UserClient -->|HTTPS/WSS| Proxy
+    NotaryClient -->|HTTPS/WSS| Proxy
+    AdminConsole -->|HTTPS/WSS| Proxy
+    Proxy -->|Forward TLS| NginxGateway
+    NginxGateway -->|Internal Load Balancer| APICluster
+    APICluster -->|Audit Stream| WorkerService
+    APICluster -->|Secured TCP 5432| DBInstance
+    WorkerService -->|Secured TCP 5432| DBInstance
+    APICluster -->|IAM Signed Uploads| S3Bucket
+    APICluster -->|EIP-55 JSON-RPC| BNBProvider
+    NotaryClient -->|EIP-55 JSON-RPC| BNBProvider
+    AdminConsole -->|EIP-55 JSON-RPC| BNBProvider
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d3">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">3. Desktop Application Core Architecture</h3>
+                        <p class="diagram-desc">Zooms in on the Electron shell wrapper that bridges the React Desktop client to the Java Core runtime executing local cryptographic signing and Web3j transactions.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c3')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c3">
+graph LR
+    subgraph "Electron Shell Wrapper (Desktop)"
+        ReactView["React UI Presentation"]
+        IPCBridge["Electron IPC Renderer Bridge"]
+        LocalServer["Embedded Spring Boot / Java Core Service"]
+        LocalDB["H2 / Encrypted SQLite Key-Store"]
+        Web3jModule["Web3j Blockchain Connector"]
+    end
+
+    User["Admin / Notary User"] -->|Interacts| ReactView
+    ReactView -->|IPC Events| IPCBridge
+    IPCBridge -->|Internal REST API Port 8085| LocalServer
+    LocalServer -->|Query Credentials| LocalDB
+    LocalServer -->|Invoke Cryptography| Web3jModule
+    Web3jModule -->|Web3 RPC| BNBTestnet["BNB Smart Chain Node"]
+    LocalServer -->|Sync System Logs| RemoteAPI["BBSNS Central API"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d4">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">4. Blockchain Interaction Bridge Architecture</h3>
+                        <p class="diagram-desc">Depicts the hybrid transaction model where the Document Owner uses gasless meta-transactions (relayers) while Admins and Notaries directly execute transactions.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c4')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c4">
+graph TD
+    ClientApp["Web/Desktop UI"]
+    RelayerService["BBSNS Gasless Relayer Service"]
+    GasAccount["Relayer Gas Funding Account"]
+
+    subgraph "BNB Smart Chain Network"
+        RPCGateway["BSC Testnet JSON-RPC Gateway"]
+        NotaryRegistryContract["NotaryRegistry.sol"]
+        DocumentRegistryContract["DocumentRegistry.sol"]
+    end
+
+    ClientApp -->|1. Sign Transaction EIP-712| ClientApp
+    ClientApp -->|2. Send Signed Payload| RelayerService
+    RelayerService -->|3. Wrap Meta-Tx| GasAccount
+    GasAccount -->|4. Broadcast Transaction with Relayer Wallet| RPCGateway
+    ClientApp -->|1B. Direct Web3 / Wallet Signature| RPCGateway
+    RPCGateway --> DocumentRegistryContract
+    RPCGateway --> NotaryRegistryContract
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d5">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">5. Smart Contract Ecosystem Diagram</h3>
+                        <p class="diagram-desc">Outlines the core deployed solidity contracts, their interaction paths, roles, inheritance, and governance models.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c5')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c5">
+graph BT
+    subgraph "Base Infrastructure"
+        Ownable["OpenZeppelin Ownable"]
+        Pausable["OpenZeppelin Pausable"]
+    end
+
+    subgraph "System Registries"
+        NotaryRegistry["NotaryRegistry.sol (Tracks Notary Active States & Credentials)"]
+        DocumentRegistry["DocumentRegistry.sol (Validates and anchors Document Hashes)"]
+    end
+
+    subgraph "Token & Economics"
+        NTKToken["NTKToken.sol (ERC20 Protocol Utility Token)"]
+        NTKRToken["NTKRToken.sol (ERC721/SBT Non-Transferable Reputation Token)"]
+    end
+
+    subgraph "Governance System"
+        MultiSig["GovernanceMultiSig.sol (Admin multisig threshold controller)"]
+    end
+
+    NotaryRegistry -.->|Inherits| Ownable
+    NotaryRegistry -.->|Inherits| Pausable
+    DocumentRegistry -.->|Inherits| Ownable
+    MultiSig -->|Governs / Promotes| NotaryRegistry
+    MultiSig -->|Governs / Halts| DocumentRegistry
+    NotaryRegistry -->|Allows Notarization Writes| DocumentRegistry
+    DocumentRegistry -->|Rewards NTKR SBT| NTKRToken
+    DocumentRegistry -->|Slashes NTKR or Debits Fee| NTKToken
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d6">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">6. Database Relationships Overview</h3>
+                        <p class="diagram-desc">Provides a high-level representation of how Postgres tables interact under core application transactions.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c6')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c6">
+graph TD
+    USERS["USERS (id, username, email, wallet_address, role, identity_state)"]
+    NOTARY_APPLICATIONS["NOTARY_APPLICATIONS (id, full_name, wallet_address, status, activation_token)"]
+    DOCUMENTS["DOCUMENTS (id, title, filename, file_hash, status, owner_id, notary_id, tx_hash)"]
+    GOVERNANCE_PROPOSALS["GOVERNANCE_PROPOSALS (id, title, type, status, proposer_id)"]
+    SYSTEM_LOGS["SYSTEM_LOGS (id, action_type, description, executed_by)"]
+
+    USERS -->|submits| NOTARY_APPLICATIONS
+    USERS -->|owns| DOCUMENTS
+    USERS -->|proposes| GOVERNANCE_PROPOSALS
+    USERS -->|generates| SYSTEM_LOGS
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d7">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">7. Zero-Trust Security Stack Architecture</h3>
+                        <p class="diagram-desc">Displays the layered defensive system including JWT validation, Zero-Trust network routing, rate limiting, and on-chain ban enforcement.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c7')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c7">
+graph TD
+    Request["Incoming TLS 1.3 Request"]
+    
+    subgraph "Layer 1: Perimeter Guard"
+        Cloudflare["Cloudflare Rate Limiter & Web Application Firewall (WAF)"]
+    end
+
+    subgraph "Layer 2: Network Gate"
+        Nginx["Nginx Reverse Proxy IP Filter"]
+    end
+
+    subgraph "Layer 3: Authentication Gate"
+        JWTAuth["JWT Authenticator (Zero-Trust Session Validator)"]
+        RoleGuard["Role-Based Access Control (RBAC) Guard"]
+    end
+
+    subgraph "Layer 4: Smart Contract Compliance Gate"
+        OnChainGuard["On-Chain Ban & Role Check (Smart Contract State)"]
+    end
+
+    subgraph "Target Endpoint"
+        TargetResource["Application Logic Execution"]
+    end
+
+    Request --> Cloudflare
+    Cloudflare -->|Accept| Nginx
+    Nginx -->|Accept| JWTAuth
+    JWTAuth -->|Valid JWT| RoleGuard
+    RoleGuard -->|Authorized Role| OnChainGuard
+    OnChainGuard -->|ACTIVE & UNBANNED| TargetResource
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d8">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">8. Authentication & JWT Handshake Flow</h3>
+                        <p class="diagram-desc">Traces the cryptographically backed login flow that binds the database actor with their on-chain wallet address.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c8')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c8">
+sequenceDiagram
+    autonumber
+    actor Client as "User / Notary / Admin"
+    participant UI as "Desktop/Web UI"
+    participant API as "Spring Boot API Server"
+    participant DB as "PostgreSQL DB"
+    participant BC as "BNB Smart Chain Node"
+
+    Client->>UI: Select Login and Input Credentials
+    UI->>API: Request Login Challenge Nonce
+    API->>DB: Check User Registered Wallet
+    DB-->>API: User Record (wallet_address, password_hash)
+    API-->>UI: Return Deterministic Challenge String
+    UI->>Client: Request Cryptographic Sign-Off (MetaMask / Local Core)
+    Client-->>UI: User signs challenge payload
+    UI->>API: Submit Signed Payload + Password + National ID
+    API->>API: Recover Wallet Address from Signature
+    API->>BC: Check isBanned(walletAddress)
+    BC-->>API: Return false (Active)
+    API->>API: Compare recoveredAddress === db.walletAddress
+    API->>API: Verify Password & National ID Hash
+    API->>API: Generate EIP-712 Secured JWT (Expires in 12 hours)
+    API-->>UI: Return JWT in HttpOnly Secured Cookie
+    UI-->>Client: Access Dashboard Session Enabled
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d9">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">9. KYC Face Mesh Verification Flow</h3>
+                        <p class="diagram-desc">Maps out the step-by-step identity matching workflow that runs during notary onboarding to prevent credential theft.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c9')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c9">
+graph TD
+    Start["Applicant Starts Identity Check"] --> Input["Input Personal Credentials (National ID, Email)"]
+    Input --> Webcam["Initialize Secure Client Webcam Stream"]
+    Webcam --> FaceCapture["Capture Face Frame Target"]
+    FaceCapture --> FaceMesh["Extract Facial Landmarks (FaceMesh)"]
+    FaceMesh --> Descriptor["Generate 128-dimensional Face Vector"]
+    
+    subgraph "Spring Boot Server Processing"
+        VectorCheck["Validate Descriptor Distance vs DB Store"]
+        DbMatch{Existing Face Registered?}
+    end
+
+    Descriptor --> VectorCheck
+    VectorCheck --> DbMatch
+    DbMatch -->|"Yes (Similarity > 0.6)"| RejectKYC["Reject: Identity Already Claimed"]
+    DbMatch -->|"No Match (Unique Face)"| VerifyID["Verify National ID via Govt Database"]
+    
+    VerifyID --> IDCheck{Valid National ID?}
+    IDCheck -->|No| RejectKYC
+    IDCheck -->|Yes| CreateProfile["Issue Verified Onboarding Token"]
+    CreateProfile --> Complete["Notary Application moves to KYC_VERIFIED Status"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d10">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">10. Token Economy Architecture Flow (NTK + NTKR)</h3>
+                        <p class="diagram-desc">Illustrates the economic feedback loop between NTK (utility tokens) and NTKR (non-transferable reputation tokens) in the ecosystem.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c10')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c10">
+graph TD
+    Owner["Document Owner"]
+    Notary["Notary User"]
+    SBTContract["NTKR Reputation SBT (ERC721)"]
+    NTKContract["NTK Utility Token (ERC20)"]
+    SystemPool["System Reserve Pool"]
+
+    Owner -->|"1. Pays Notarization Fee (NTK)"| SystemPool
+    SystemPool -->|"2. Disburses Notary Incentive (NTK)"| Notary
+    SystemPool -->|"3. Awards Reputation Point (NTKR SBT)"| Notary
+    Notary -->|"4. Performs Fraudulent Sign-Off"| Notary
+    Notary -.->|"5. Slashes Accrued Points (NTKR)"| SBTContract
+    Notary -.->|"6. Debits Collateral Stake (NTK)"| NTKContract
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section>
+            <h2>Section 2 — Flowcharts</h2>
+
+            <div class="diagram-container" id="d11">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">11. User Registration Flow</h3>
+                        <p class="diagram-desc">Step-by-step logic path for onboarding new clients into the system.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c11')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c11">
+flowchart TD
+    A[Start Registration] --> B[Enter Email and Password]
+    B --> C[Validate Password Strength]
+    C -->|Weak| D[Display Error: Weak Credentials]
+    D --> B
+    C -->|Strong| E[Input National Identification Number]
+    E --> F[Normalize National ID: Trim/Spaces/Uppercase]
+    F --> G[Connect Wallet Address]
+    G --> H[Check Unique Email, Wallet, & ID Hash in DB]
+    H -->|Conflict| I[Display Registration Error: Duplicate User]
+    I --> B
+    H -->|Unique| J[Create User Record: role='user', identity_state='ACTIVE']
+    J --> K[Complete: Direct Routing to Dashboard]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d12">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">12. Login + Wallet Signing Flow</h3>
+                        <p class="diagram-desc">Operational control chart representing how the login guard behaves at runtime.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c12')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c12">
+flowchart TD
+    A[Start Login] --> B[Input Email, Password, & ID]
+    B --> C[Prompt Wallet Sign Request]
+    C -->|User Rejects| D[Abort Authentication]
+    C -->|User Confirms| E[Recover Address from Cryptographic Signature]
+    E --> F[Check if User Registered in Database]
+    F -->|No Profile| G[Provision Admin if wallet matches On-chain Admin]
+    F -->|Found| H[Verify Password & National ID matches Hash]
+    H -->|Mismatch| I[Fail: 401 Invalid Credentials]
+    H -->|Match| J[Verify liveRole and isBanned status on BNB Chain]
+    J -->|Banned| K[Fail: 403 Suspended]
+    J -->|Active| L{identity_state == 'ACTIVE'?}
+    L -->|No| M[Fail: 403 Account Verification Required]
+    L -->|Yes| N[Generate 12-Hour JWT & Allow Dashboard View]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d13">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">13. S3 Document Upload Flow</h3>
+                        <p class="diagram-desc">Shows how the document is securely handled from owner client application to AWS S3.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c13')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c13">
+flowchart TD
+    Start[User Selects Document File] --> Size{"Check File Size < 50MB?"}
+    Size -->|Over Limit| LimitErr[Display Max Limit Error]
+    Size -->|Under Limit| Hash[Compute SHA-256 Hash locally on Client]
+    Hash --> API["Initialize Upload Intent (POST /api/documents/upload-intent)"]
+    API --> Intent{"Validate User Privilege?"}
+    Intent -->|Unauthorized| AuthErr[401 Session Denied]
+    Intent -->|Authorized| GenId["Generate Secure UUID & Target AWS S3 Key Path"]
+    GenId --> S3Sign["Generate S3 Presigned Signed URL"]
+    S3Sign --> Upload["Upload Raw Binary Directly to S3 Secure Vault"]
+    Upload --> VerifyHash["Confirm Upload Complete & DB record metadata updated"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d14">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">14. Notary Validation Queue Workflow</h3>
+                        <p class="diagram-desc">The process logic mapping the notarization validation cycle.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c14')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c14">
+flowchart TD
+    Start[Notary Accesses Queue] --> Select[Select Document for Verification]
+    Select --> S3Presign[Fetch S3 File Temporary Preview Link]
+    S3Presign --> VerifyDoc{Read content & Verify Hashes}
+    VerifyDoc -->|Invalid/Not Matching| Reject[Mark Rejected]
+    Reject --> InputReason[Input Rejection Reason Description]
+    InputReason --> SaveReject[Update DB Status: 'rejected']
+    VerifyDoc -->|Valid Document| Approve[Approve Document]
+    Approve --> SignTx[Submit On-Chain Anchoring Transaction]
+    SignTx --> WaitBC[Wait for Transaction Finality]
+    WaitBC --> SetExecuted[Update DB Status: 'notarized', save Tx Hash]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d15">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">15. Blockchain Anchoring Hash storage workflow</h3>
+                        <p class="diagram-desc">The exact technical steps required to push document verification hashes to BNB Chain.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c15')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c15">
+flowchart TD
+    Start[Receive Notarization Command] --> Extract[Extract SHA-256 Hash & UUID]
+    Extract --> Web3Approve[Request Wallet Signature]
+    Web3Approve --> BuildTx[Assemble Contract Call: anchorDocument]
+    BuildTx --> SendNode[Submit Tx to BNB RPC Node]
+    SendNode --> Mempool[Wait in Transaction Pool]
+    Mempool --> Mined[Mined in Block]
+    Mined --> EventTrigger[DocumentAnchored Event Logged]
+    EventTrigger --> SyncDB[Sync Service updates Database status to 'notarized']
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d16">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">16. PDF Verification Certificate flow</h3>
+                        <p class="diagram-desc">Describes how the final validation PDF certificate is cryptographically compiled.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c16')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c16">
+flowchart TD
+    Start[Notarization Finalized on Blockchain] --> FetchMeta[Fetch Document Metadata, Notary Signature, & Blockchain Tx Hash]
+    FetchMeta --> Template[Inject Data into Secure Verification Template]
+    Template --> GenQR[Generate QR Code linking to verification endpoint]
+    GenQR --> PDFGen[Compile PDF via Server Engine]
+    PDFGen --> CryptSign[Apply BBSNS System Cryptographic Watermark Signature]
+    CryptSign --> SaveS3[Save Verification Certificate in S3 Bucket]
+    SaveS3 --> Link[Attach Certificate Access Link to Document record]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d17">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">17. Token Request Flow</h3>
+                        <p class="diagram-desc">The system workflow required for users to request and receive NTK protocol tokens.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c17')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c17">
+flowchart TD
+    Start[User requests NTK Tokens] --> LimitCheck{Request limit exceeded for day?}
+    LimitCheck -->|Yes| Block[Block: Request Limit Exceeded]
+    LimitCheck -->|No| InsertPending[Insert Token Request in DB: 'pending']
+    InsertPending --> AdminQueue[Visible in Admin Settings Panel]
+    AdminQueue --> Review{Admin Action}
+    Review -->|Rejection| SetReject[Update DB Status: 'rejected']
+    Review -->|Approval| ProcessTransfer[Trigger On-Chain Token Transfer Transaction]
+    ProcessTransfer --> TxVerify[Verify Blockchain Event Captured]
+    TxVerify --> SetApprove[Update DB Status: 'approved']
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d18">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">18. Smart Contract Deployment Lifecycle</h3>
+                        <p class="diagram-desc">Process workflow followed to compile, test, verify, and lock down BBSNS Solidity contracts during releases.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c18')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c18">
+flowchart TD
+    Start[Write Solidity Smart Contracts] --> Compile[Compile Contracts with Hardhat / Truffle]
+    Compile --> LocalTest[Execute Local Core Contract Tests]
+    LocalTest --> DeployLocal[Deploy on local Hardhat Node]
+    DeployLocal --> TestSuite[Execute E2E Integration Suite]
+    TestSuite --> DeployTestnet[Deploy to BNB Smart Chain Testnet]
+    DeployTestnet --> Verification[Verify Contract Code on BscScan]
+    Verification --> SetProxy[Register Proxy / Multisig Admin Controls]
+    SetProxy --> SyncBackend[Import Contract ABIs & Addresses to Spring Boot config]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d19">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">19. Admin Approval Gate Flow (Notaries)</h3>
+                        <p class="diagram-desc">The administrative governance process for promoting notary candidates.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c19')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c19">
+flowchart TD
+    Start[Notary Completes KYC] --> Queue[Visible in Admin Notaries Application List]
+    Queue --> Review[Admin Evaluates Applicant Background Details]
+    Review --> Action{Approve Candidate?}
+    Action -->|No| Reject[Mark Status: 'rejected']
+    Action -->|Yes| SendEmail[Generate and Send 12h Activation Email]
+    SendEmail --> Provision[Provision DB User record: role='notary', identity_state='PENDING']
+    Provision --> Sync[Trigger Sync Worker to execute on-chain notary promotion]
+    Sync --> End[Awaiting Candidate Email Click]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d20">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">20. Failure & Exception Route</h3>
+                        <p class="diagram-desc">Depicts the FSM transitions and database changes when a process fails.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c20')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c20">
+flowchart TD
+    Start[System / Actor Identifies Violation] --> Action[Determine context: Document / User Onboarding]
+    Action -->|Document Rejection| UpdateDoc[Update Document: status='rejected', save rejection_reason]
+    UpdateDoc --> LogDoc[Write System Audit Log LogAction]
+    Action -->|KYC / Application Failure| UpdateApp[Update Applications: status='rejected']
+    UpdateApp --> DisableUser[Update User: identity_state='INACTIVE' / role='owner']
+    DisableUser --> LogApp[Write System Audit Log LogAction]
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section>
+            <h2>Section 3 — UML Diagrams</h2>
+
+            <div class="diagram-container" id="d21">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">21. Use Case Matrix</h3>
+                        <p class="diagram-desc">Outlines system actor permissions and accessibility levels.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c21')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c21">
+graph TD
+    DocOwner((Document Owner))
+    NotaryActor((Notary))
+    AdminActor((System Admin))
+
+    subgraph "BBSNS Boundary"
+        UC1[Register & Connect Wallet]
+        UC2[Upload Document Intent]
+        UC3[Track Document Journey]
+        UC4[View Pending Audits]
+        UC5[Perform Notary Biometrics]
+        UC6[Validate & Sign Document Hash]
+        UC7[View System Logs]
+        UC8[Configure System Settings]
+        UC9[Manage Notary Applications]
+        UC10[Vote on Governance Proposals]
+        UC11[Execute Passed Governance Proposals]
+    end
+
+    DocOwner --> UC1
+    DocOwner --> UC2
+    DocOwner --> UC3
+    NotaryActor --> UC4
+    NotaryActor --> UC5
+    NotaryActor --> UC6
+    NotaryActor --> UC10
+    AdminActor --> UC7
+    AdminActor --> UC8
+    AdminActor --> UC9
+    AdminActor --> UC10
+    AdminActor --> UC11
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d22">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">22. Core Persistence Class Diagram</h3>
+                        <p class="diagram-desc">Defines backend core object relationships, interfaces, and persistence properties.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c22')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c22">
+classDiagram
+    class User {
+        +Long id
+        +String username
+        +String email
+        +String walletAddress
+        +String role
+        +String identityState
+        +String nationalIdHash
+        +isKyced() Boolean
+    }
+
+    class NotaryApplication {
+        +Long id
+        +String fullName
+        +String email
+        +String walletAddress
+        +String status
+        +String activationToken
+        +Date activationExpiresAt
+        +approve() void
+        +reject() void
+    }
+
+    class Document {
+        +UUID id
+        +String title
+        +String filename
+        +String fileHash
+        +String status
+        +Long ownerId
+        +Long notaryId
+        +String blockchainTxHash
+        +notarize(notaryId) void
+        +reject(reason) void
+    }
+
+    class DocumentRegistryContract {
+        +address contractAddress
+        +anchorDocument(bytes32 docHash, string uuid) Transaction
+        +verifyDocument(bytes32 docHash) Boolean
+    }
+
+    User "1" --> "*" Document : owns
+    User "1" --> "*" NotaryApplication : submits
+    DocumentRegistryContract ..> Document : Anchors on-chain
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d23">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">23. Sequence: Document Upload</h3>
+                        <p class="diagram-desc">Captures the interactions across systems during document preparation.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c23')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c23">
+sequenceDiagram
+    autonumber
+    actor Owner as "Document Owner"
+    participant WebApp as "Web Interface"
+    participant API as "Spring Boot Server"
+    participant DB as "PostgreSQL"
+    participant S3 as "AWS S3 Storage"
+
+    Owner->>WebApp: Select Document File
+    WebApp->>WebApp: Generate SHA-256 locally on browser
+    WebApp->>API: POST /api/documents/upload-intent (filename, mimetype, fileHash)
+    API->>API: Verify User Privileges & Auth State
+    API->>DB: Check Unique Hash (Prevent Duplicate Register)
+    DB-->>API: Unique Confirmed
+    API->>API: Generate EIP-55 UUID for Document Record
+    API->>S3: Request Pre-signed Upload URL for Key Path
+    S3-->>API: Return Temporary Signed URL
+    API->>DB: Save Document Record Status: 'pending_upload'
+    API-->>WebApp: Return presigned URL & EIP UUID
+    WebApp->>S3: PUT Raw Binary Payload (Direct Upload)
+    S3-->>WebApp: 200 OK Upload Successful
+    WebApp->>API: POST /api/documents/confirm-upload (UUID)
+    API->>DB: Set Document Status: 'uploaded'
+    API-->>WebApp: Document Ready for Notarization
+    WebApp-->>Owner: Display Upload Successful State
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d24">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">24. Sequence: Notary Verification</h3>
+                        <p class="diagram-desc">Highlights the secure cryptographic step-by-step notary review workflow.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c24')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c24">
+sequenceDiagram
+    autonumber
+    actor Notary as "Notary User"
+    participant App as "Desktop Interface"
+    participant API as "Spring Boot Server"
+    participant S3 as "AWS S3 Storage"
+    participant Contract as "DocumentRegistry.sol"
+    participant BC as "BNB Smart Chain Node"
+
+    Notary->>App: Open Pending Verification Queue
+    App->>API: GET /api/documents/pending
+    API-->>App: List of pending documents
+    Notary->>App: Click 'Review Document'
+    App->>API: GET /api/documents/:id/preview
+    API->>S3: Generate secure temporary preview link
+    S3-->>API: Preview URL
+    API-->>App: Preview URL
+    App->>Notary: Render Document Content in view
+    Notary->>App: Confirm Verification and Sign Hash
+    App->>App: Request signature from local keystore
+    App->>API: POST /api/documents/:id/notarize (signature, auditDetails)
+    API->>Contract: Call anchorDocument(docHash, uuid)
+    Contract->>BC: Execute transaction on BNB Chain
+    BC-->>Contract: Log Event: DocumentAnchored
+    Contract-->>API: Transaction Complete (Tx Hash)
+    API->>API: Update DB Status: 'notarized', save Tx Hash
+    API-->>App: Return success, display Transaction Hash
+    App-->>Notary: Notarization Confirmed on BSC Testnet
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d25">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">25. Sequence: Wallet Login</h3>
+                        <p class="diagram-desc">Traces the cryptographically sealed system ingress workflow.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c25')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c25">
+sequenceDiagram
+    autonumber
+    actor User
+    participant App as "Electron / React"
+    participant API as "Spring Boot Engine"
+    participant DB as "Postgres Instance"
+    participant MetaMask as "Client Wallet"
+
+    User->>App: Request System Log-In
+    App->>API: GET /api/auth/challenge?wallet=0xAddress
+    API->>DB: Lookup associated wallet
+    DB-->>API: Match found, role validated
+    API-->>App: Challenge message: "BBSNS::LOGIN::v1::{nonce}"
+    App->>MetaMask: Request personal_sign (Challenge)
+    MetaMask-->>User: Show signature sign request prompt
+    User->>MetaMask: Authorize (Sign)
+    MetaMask-->>App: Return cryptographic signature hash
+    App->>API: POST /api/auth/login (signature, walletAddress)
+    API->>API: Recover address from signature
+    API->>DB: Update user session audit logs
+    API-->>App: Return EIP-712 Encoded JWT Cookie
+    App-->>User: Enter authorized role interface
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d26">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">26. Activity Matrix Diagram</h3>
+                        <p class="diagram-desc">Visualizes the sequential operations of all actors during a document lifecycle.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c26')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c26">
+stateDiagram-v2
+    state "Document Owner Activity" as OwnerSection {
+        [*] --> SelectFile
+        SelectFile --> GenerateHash
+        GenerateHash --> RequestPresign
+        RequestPresign --> DirectUploadToS3
+        DirectUploadToS3 --> ConfirmUpload
+    }
+
+    state "Server & Database Activity" as SystemSection {
+        ConfirmUpload --> SavePendingAudit
+        SavePendingAudit --> QueueForNotary
+    }
+
+    state "Notary Activity" as NotarySection {
+        QueueForNotary --> ReviewContent
+        ReviewContent --> VerifyHashIntegrity
+        VerifyHashIntegrity --> Choice
+        Choice --> RejectionReason : Reject
+        Choice --> SignCryptographically : Approve
+    }
+
+    state "Blockchain Engine Execution" as BlockchainSection {
+        SignCryptographically --> BroadcastTx
+        BroadcastTx --> BlockConfirmed
+        BlockConfirmed --> GeneratePDFCertificate
+    }
+
+    RejectionReason --> [*]
+    GeneratePDFCertificate --> [*]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d27">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">27. State: Document Lifecycle</h3>
+                        <p class="diagram-desc">Demonstrates how document status values transition based on transactional mutations.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c27')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c27">
+stateDiagram-v2
+    [*] --> pending_upload : POST /upload-intent
+    pending_upload --> uploaded : S3 confirm-upload
+    uploaded --> KYC_MATCH_PENDING : Trigger AI scan
+    KYC_MATCH_PENDING --> pending_audit : Face match verified
+    KYC_MATCH_PENDING --> rejected : AI detects mismatch
+    pending_audit --> rejected : Notary rejects
+    pending_audit --> approved : Notary signs approval
+    approved --> notarized : Blockchain Tx event finalized
+    notarized --> [*]
+    rejected --> [*]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d28">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">28. State: User Onboarding Lifecycle</h3>
+                        <p class="diagram-desc">Charts the user onboarding lifecycle states.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c28')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c28">
+stateDiagram-v2
+    [*] --> unregistered
+    unregistered --> pending : Submit Application form
+    pending --> KYC_VERIFIED : Face verification successful
+    KYC_VERIFIED --> approved : Admin triggers approval
+    approved --> ACTIVE : Token activation email clicked
+    ACTIVE --> Banned : Admin triggers ban proposal
+    Banned --> ACTIVE : Governance unbanned
+    ACTIVE --> [*]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d29">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">29. Modular Components Diagram</h3>
+                        <p class="diagram-desc">Maps the software modular divisions of the codebase.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c29')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c29">
+graph TD
+    subgraph "Front-End Services"
+        ReactApp["React UI Components"]
+        ReduxStore["Redux State Store"]
+        Web3Service["Web3 Connector Module"]
+    end
+
+    subgraph "Spring Boot Server"
+        AuthController["Auth Controller REST"]
+        DocController["Document Controller REST"]
+        GovController["Governance Controller REST"]
+        UserService["UserService Core"]
+        DocService["DocumentService Core"]
+        BlockchainSync["Blockchain Sync Monitor"]
+    end
+
+    subgraph "Decentralized Layer"
+        BSC["BNB Chain RPC Gateway"]
+        S3["AWS S3 Secure Storage"]
+    end
+
+    ReactApp -->|REST API Calls| AuthController
+    ReactApp -->|REST API Calls| DocController
+    ReactApp -->|REST API Calls| GovController
+    Web3Service -->|JSON-RPC| BSC
+    AuthController --> UserService
+    DocController --> DocService
+    GovController --> BlockchainSync
+    DocService --> S3
+    BlockchainSync --> BSC
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d30">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">30. Packages Structure</h3>
+                        <p class="diagram-desc">Demonstrates directory structural divisions.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c30')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c30">
+graph TD
+    subgraph "org.bbsns.system"
+        config["config"]
+        controllers["controllers"]
+        services["services"]
+        repositories["repositories"]
+        entities["entities"]
+        blockchain["blockchain"]
+    end
+
+    controllers --> services
+    services --> repositories
+    repositories --> entities
+    services --> blockchain
+    config --> controllers
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section>
+            <h2>Section 4 — Data Flow Diagrams (DFDs)</h2>
+
+            <div class="diagram-container" id="d31">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">31. Context Level DFD</h3>
+                        <p class="diagram-desc">Highlights interactions between core external entities and the main system boundary.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c31')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c31">
+graph LR
+    Owner["Document Owner"]
+    Notary["Notary User"]
+    Admin["System Admin"]
+    
+    subgraph "BBSNS Core Process System [Boundary]"
+        SystemProcess["BBSNS Notarization System Engine"]
+    end
+
+    Owner -->|1. Submit Upload Request / Credentials| SystemProcess
+    SystemProcess -->|2. Return Certificate / Track Status| Owner
+    Notary -->|3. Perform KYC Face Verification / Signatures| SystemProcess
+    SystemProcess -->|4. Dispatch Audit Requests| Notary
+    Admin -->|5. Manage Settings / App approvals / Votes| SystemProcess
+    SystemProcess -->|6. Dispatch Logs / Audit Trail| Admin
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d32">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">32. DFD Level 0 (Overview)</h3>
+                        <p class="diagram-desc">Zooms in on main data pathways, inputs, outputs, and storage entities.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c32')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c32">
+graph TD
+    Owner["Document Owner"]
+    Notary["Notary User"]
+    Admin["System Admin"]
+
+    subgraph "Data Storage"
+        DB[(PostgreSQL Database)]
+        BC[(BNB Smart Chain Network)]
+        S3[(AWS S3 Storage)]
+    end
+
+    P1["1.0 Registration & Auth Process"]
+    P2["2.0 Document Upload Process"]
+    P3["3.0 Audit & Sign Process"]
+    P4["4.0 Governance & System Management"]
+
+    Owner -->|Credentials| P1
+    P1 -->|Query / Save User| DB
+    Owner -->|Upload File Metadata| P2
+    P2 -->|Save Temp Meta| DB
+    P2 -->|PUT Binary Payload| S3
+    Notary -->|Verify Signature & Status| P3
+    P3 -->|Fetch File Preview| S3
+    P3 -->|Write Document Registry Event| BC
+    P3 -->|Set Notarized Status| DB
+    Admin -->|Governance Votes / Settings| P4
+    P4 -->|Update System State| DB
+    P4 -->|Promote On-Chain Roles| BC
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d33">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">33. DFD Level 1 — Document Processing</h3>
+                        <p class="diagram-desc">Expands Document Processing sub-routines.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c33')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c33">
+graph TD
+    Owner["Document Owner"]
+    Notary["Notary User"]
+    
+    subgraph "Processes"
+        P2_1["2.1 Generate File SHA-256 Hash"]
+        P2_2["2.2 Generate S3 Presigned URL"]
+        P2_3["2.3 Finalize S3 Binary Save"]
+        P2_4["2.4 Queue for Verification"]
+    end
+
+    subgraph "Storage"
+        DB[(Postgres DB)]
+        S3[(AWS S3 Vault)]
+    end
+
+    Owner -->|Raw File| P2_1
+    P2_1 -->|Calculated File Hash| P2_2
+    P2_2 -->|Request Link| DB
+    DB -->|Verified Unique — Return Presign Target| P2_2
+    P2_2 -->|Upload URL| Owner
+    Owner -->|PUT Payload| P2_3
+    P2_3 -->|Raw Binary Store| S3
+    P2_3 -->|Confirm Upload Successful| P2_4
+    P2_4 -->|Update Status: uploaded| DB
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d34">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">34. DFD Level 1 — Authentication System</h3>
+                        <p class="diagram-desc">Low-level view of how Zero-Trust authentication handles payload validation.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c34')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c34">
+graph TD
+    User["Authentication Candidate"]
+    
+    subgraph "Processes"
+        P1_1["1.1 Issue Random Nonce String"]
+        P1_2["1.2 Recover Signing Address"]
+        P1_3["1.3 Verify DB Match & Credentials"]
+        P1_4["1.4 Generate Session JWT Session"]
+    end
+
+    subgraph "Storage"
+        DB[(PostgreSQL Database)]
+        Sessions["Redis / Cookie Session Cache"]
+    end
+
+    User -->|Request Challenge Nonce| P1_1
+    P1_1 -->|Generate and Store Challenge| DB
+    P1_1 -->|Return Challenge Nonce| User
+    User -->|Submit signed challenge + details| P1_2
+    P1_2 -->|Signature Recovery Logic| P1_3
+    P1_3 -->|Lookup Address, Password & ID| DB
+    P1_3 -->|Match Validated| P1_4
+    P1_4 -->|Write JWT Token Cookie| Sessions
+    P1_4 -->|Access Allowed| User
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d35">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">35. DFD Level 1 — Blockchain Verification</h3>
+                        <p class="diagram-desc">Shows data transfers when committing document hashes on-chain.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c35')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c35">
+graph TD
+    Notary["Notary User"]
+    
+    subgraph "Processes"
+        P3_1["3.1 Assemble Raw Transaction Payload"]
+        P3_2["3.2 Broadcast Payload via Node Gateway"]
+        P3_3["3.3 Block Confirmation Event Handler"]
+        P3_4["3.4 Sync Database Record"]
+    end
+
+    subgraph "Storage"
+        BC[(BNB Smart Chain Network)]
+        DB[(PostgreSQL Database)]
+    end
+
+    Notary -->|Initiate Anchor Document| P3_1
+    P3_1 -->|Address details & EIP UUID| P3_2
+    P3_2 -->|Submit Signed Transaction| BC
+    BC -->|Execute anchorDocument Solidity Call| BC
+    BC -->|Transaction Confirmed Block| P3_3
+    P3_3 -->|Event Log: DocumentAnchored| P3_4
+    P3_4 -->|Update DB Status: 'notarized'| DB
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section>
+            <h2>Section 5 — Data & Storage</h2>
+
+            <div class="diagram-container" id="d36">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">36. Physical ER Diagram</h3>
+                        <p class="diagram-desc">Production-level Entity-Relationship details of the PostgreSQL database tables.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c36')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c36">
+erDiagram
+    USERS {
+        bigint id PK
+        varchar username
+        varchar email
+        varchar wallet_address UK
+        varchar role
+        varchar identity_state
+    }
+    DOCUMENTS {
+        uuid id PK
+        varchar title
+        varchar file_hash UK
+        bigint owner_id FK
+        bigint notary_id FK
+    }
+    NOTARY_APPLICATIONS {
+        bigint id PK
+        varchar full_name
+        varchar wallet_address
+        varchar activation_token
+        bigint user_id FK
+    }
+    USERS ||--o{ DOCUMENTS : owns
+    USERS ||--o{ DOCUMENTS : signs
+    USERS ||--o{ NOTARY_APPLICATIONS : submits
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d37">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">37. Relationship Schema Mapping</h3>
+                        <p class="diagram-desc">Shows relational integrity and foreign keys.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c37')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c37">
+graph TD
+    subgraph "Postgres Schema Structure"
+        users_table["users <br/> (Primary User Directory)"]
+        applications_table["notary_applications <br/> (Activation tokens)"]
+        documents_table["documents <br/> (UUID based storage tracking)"]
+        proposals_table["governance_proposals <br/> (Voting and promotion thresholds)"]
+        logs_table["system_logs <br/> (Trace audits)"]
+    end
+
+    users_table -->|Primary Key referenced by user_id| applications_table
+    users_table -->|Primary Key referenced by owner_id| documents_table
+    users_table -->|Primary Key referenced by notary_id| documents_table
+    users_table -->|Primary Key referenced by proposer_id| proposals_table
+    users_table -->|Username referenced by executed_by| logs_table
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d38">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">38. Audit Logging Stream</h3>
+                        <p class="diagram-desc">Maps the system's strict zero-trust audit compliance model using backend logging services.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c38')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c38">
+graph TD
+    Actor["User / Notary / System Trigger"] --> Service["API Action Initiated"]
+    
+    subgraph "Transactional Audit Wrapper"
+        Service --> Intercept["Security Logger Interceptor"]
+        Intercept --> MetaParse["Capture Execution Context (Caller IP, UUID, Action type)"]
+        MetaParse --> DBCommit["Write System Log Entry (Postgres SystemLogs table)"]
+        DBCommit --> FileLog["Push Log String to Encrypted Server File System"]
+    end
+
+    FileLog --> LogStore["AWS CloudWatch / Audit Central Secure Bucket"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d39">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">39. Transaction Confirmation Steps</h3>
+                        <p class="diagram-desc">Detailed diagram trace of an on-chain transaction lifecycle within BBSNS.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c39')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c39">
+stateDiagram-v2
+    [*] --> Drafted : Assemble Transaction Parameters
+    Drafted --> Signed : Cryptographic Key Signature Applied
+    Signed --> Broadcasted : Pushed to BNB Smart Chain RPC Gateway
+    Broadcasted --> InMempool : Pending Mining Confirmation in Pool
+    
+    state InMempool {
+        [*] --> PropagatedToNodes
+        PropagatedToNodes --> PrioritizedByGasPrice
+    }
+
+    InMempool --> Mined : Block forged by Validator Node
+    Mined --> EventFired : Contract emits Execution Event
+    EventFired --> Confirmed : Reaches Finality (15 Blocks)
+    Confirmed --> [*]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d40">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">40. Private S3 Vault Isolation</h3>
+                        <p class="diagram-desc">Demonstrates absolute isolation of raw document uploads via signed URLs.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c40')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c40">
+graph TD
+    Client["Client UI Application"]
+    Server["Spring Boot Backend"]
+    S3Bucket["AWS S3 Isolated Private Bucket"]
+
+    Client -->|1. Request Access| Server
+    Server -->|2. Generate Presigned URL| Server
+    Server -->|3. Return Pre-signed Target URL| Client
+    Client -->|4. PUT Raw Binary Stream Directly| S3Bucket
+    S3Bucket -->|5. 200 OK — Upload Successful| Client
+    Client -->|6. Confirm Receipt| Server
+    Server -->|7. Verify Binary Exists in Vault| S3Bucket
+    S3Bucket -->|8. Confirmed| Server
+    Server -->|9. Lock Metadata and Set Status| Server
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section>
+            <h2>Section 6 — Project Management</h2>
+
+            <div class="diagram-container" id="d41">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">41. Compilation Dependencies</h3>
+                        <p class="diagram-desc">Shows compilation and execution module dependencies inside the codebase.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c41')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c41">
+graph TD
+    subgraph "Infrastructure Modules"
+        ProtocolConstants["Constants & Protocol Config Module"]
+        DbWrapper["PostgreSQL DB Driver Wrapper"]
+        CryptoLib["Ethers / Local Cryptography Helpers"]
+    end
+
+    subgraph "Core Business Modules"
+        AuthSvc["Zero-Trust Session Auth Service"]
+        DocEngine["S3 Secure File Processing Engine"]
+        GovEngine["On-Chain Governance MultiSig Interface"]
+    end
+
+    subgraph "Ingress Interface"
+        DesktopUI["Electron / React Desktop Module"]
+        WebPortal["Web-App Portal Module"]
+    end
+
+    AuthSvc --> DbWrapper
+    AuthSvc --> CryptoLib
+    DocEngine --> DbWrapper
+    DocEngine --> ProtocolConstants
+    GovEngine --> CryptoLib
+    GovEngine --> DbWrapper
+    DesktopUI --> AuthSvc
+    DesktopUI --> DocEngine
+    DesktopUI --> GovEngine
+    WebPortal --> AuthSvc
+    WebPortal --> DocEngine
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d42">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">42. Iterative Agile Sprints (Dev Workflow)</h3>
+                        <p class="diagram-desc">Visualizes the developer workflow from backlog tasks to deployment validation.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c42')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c42">
+graph LR
+    Backlog["Product Backlog Task"] --> Branch["Create Feature Branch"]
+    Branch --> Code["Execute Development Coding"]
+    Code --> LocalAudit["Invoke Local Pre-flight Audits"]
+    LocalAudit --> PR["Open Pull Request to Main"]
+    PR --> Review["Peer Architectural Audit / Code Review"]
+    Review -->|Changes Needed| Code
+    Review -->|Approved| Merge["Merge to Main Branch"]
+    Merge --> DeployStaging["Automated Deploy to Staging Environment"]
+    DeployStaging --> End["Verification Complete"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d43">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">43. CI/CD Pipeline Automations</h3>
+                        <p class="diagram-desc">Demonstrates the automated pipeline that runs on code pushes.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c43')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c43">
+graph TD
+    Push["Developer pushes code to GitHub"] --> Trigger["GitHub Actions Triggered"]
+    
+    subgraph "Continuous Integration Phase"
+        Trigger --> LintCheck["Run ESLint / Prettier code format audit"]
+        LintCheck --> CompileTest["Compile and Execute Unit Tests"]
+        CompileTest --> SecurityScan["SonarQube / SAST Security Audits"]
+    end
+
+    subgraph "Continuous Deployment Phase"
+        SecurityScan --> BuildArtifacts["Package production-grade artifacts"]
+        BuildArtifacts --> Dockerize["Assemble Server Docker Container Image"]
+        Dockerize --> DeployAWS["Push Server Code to AWS EC2 Cluster Host"]
+        DeployAWS --> ServiceRestart["PM2 Zero-Downtime Application Reload"]
+        ServiceRestart --> LiveAudit["Deploy Validation: Automated Health Checks"]
+    end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d44">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">44. Production Git Branching Strategy</h3>
+                        <p class="diagram-desc">Shows the branching structure used to manage secure production deployments.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c44')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c44">
+graph TD
+    MainBranch["main (stable release)"] --> DevelopBranch["develop (integration)"]
+    DevelopBranch --> FeatureBranch["feature/onboarding-face-mesh"]
+    FeatureBranch -->|PR approved| DevelopBranch
+    DevelopBranch -->|PR approved| MainBranch
+    MainBranch --> HotfixBranch["hotfix/login-nonce-expiry"]
+    HotfixBranch -->|Tested & Approved| MainBranch
+    HotfixBranch -->|Sync back| DevelopBranch
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d45">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">45. Tiered Automated Testing Matrix</h3>
+                        <p class="diagram-desc">Visualizes the tiered automated verification matrix.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c45')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c45">
+graph TD
+    CodeMerge["Post-Merge Verification"] --> Unit["1. Unit Tests (Mocking DB / Blockchain)"]
+    Unit --> Integration["2. API Integration Tests (Database Transactions)"]
+    Integration --> Web3Testing["3. Local Blockchain Smart Contract Simulation Tests (Hardhat)"]
+    Web3Testing --> EndToEnd["4. E2E Browser Testing Suite (Cypress UI flow checks)"]
+    EndToEnd --> ReleaseProd["Verification Confirmed: Package Approved"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d46">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">46. Breaker Recovery Mitigation</h3>
+                        <p class="diagram-desc">Charts system responses to critical exceptions or breaches.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c46')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c46">
+graph TD
+    Anomaly["Security Anomaly Identified (RPC Timeout / Mutation Audit Mismatch)"] --> CircuitBreaker["Trigger System Circuit Breaker"]
+    
+    subgraph "Breaker Active Routines"
+        CircuitBreaker --> HaltNonessential["Lock non-essential writes (e.g. document uploads)"]
+        CircuitBreaker --> LockConfig["Freeze system config parameters in database"]
+        CircuitBreaker --> NotifyAdmins["Dispatch Urgent Alerts to Admin Panel Console"]
+        CircuitBreaker --> FallbackRPC["Roll back RPC connection nodes to redundant servers"]
+    end
+
+    NotifyAdmins --> Repair["Manual Engineering Resolution Applied"]
+    Repair --> Reset["Restore System Circuit Breaker Status: ACTIVE"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d47">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">47. Health Dashboard Tracing</h3>
+                        <p class="diagram-desc">How performance metrics and error traces are monitored.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c47')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c47">
+graph LR
+    SystemMetrics["Application Resource Stats (Memory, Threads)"] --> DataAggregator["Central Logger Agent"]
+    TransactionCount["Contract Action Metrics"] --> DataAggregator["Central Logger Agent"]
+    ErrorLogs["System Exception Traces"] --> DataAggregator["Central Logger Agent"]
+    DataAggregator --> Analytics["Grafana Dashboard Panels / PM2 Metrics Monitor"]
+    Analytics --> Alarm{"Threshold Violation?"}
+    Alarm -->|Yes| Alert["Dispatch SMS/Email Alert via PagerDuty"]
+    Alarm -->|No| SafeState["Maintain Standard Background Logging"]
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section>
+            <h2>Section 7 — Security & Trust</h2>
+
+            <div class="diagram-container" id="d48">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">48. Multi-Factor Authentication</h3>
+                        <p class="diagram-desc">Step-up authorization flow for critical governance choices.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c48')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c48">
+sequenceDiagram
+    autonumber
+    actor Admin
+    participant UI as "Desktop Application"
+    participant API as "Spring Boot Server"
+    participant HSM as "Local Security Hardware / Face Scan"
+
+    Admin->>UI: Request execution of passed promotion proposal
+    UI->>API: POST /api/governance/proposals/:id/execute
+    API->>API: Identify high-risk action (admin elevation)
+    API-->>UI: Return step-up verification challenge
+    UI->>HSM: Intrude local face biometric validation capture
+    HSM-->>UI: Verification check confirmed
+    UI->>UI: Generate dynamic verification signature from keystore
+    UI->>API: Submit signed verification token
+    API->>API: Validate signature match
+    API->>API: Execute on-chain promotion commands
+    API-->>UI: Proposal completed, promotion successful
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d49">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">49. Access Policy (RBAC) Guard Matrix</h3>
+                        <p class="diagram-desc">Traces how requests route through the backend `requirePrivilege` middleware check.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c49')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c49">
+graph TD
+    Req["Incoming API Request"] --> ExtractUser["Extract JWT and read Session User Role"]
+    ExtractUser --> LoadPolicy{"Required Capability defined for endpoint?"}
+    
+    subgraph "RBAC Verification Suite"
+        LoadPolicy -->|Yes| CheckMinRole{"Verify User Role satisfies requirement?"}
+        CheckMinRole -->|Admin| AllowAdmin["Allow complete CRUD access and configuration settings"]
+        CheckMinRole -->|Notary| AllowNotary["Allow document verification, queue reviews"]
+        CheckMinRole -->|Owner / Client| AllowOwner["Allow personal file uploads, tracking checks only"]
+        CheckMinRole -->|Mismatched Role| RejectAccess["Reject: 403 Forbidden Access Privilege Required"]
+    end
+
+    AllowAdmin --> ExecuteLogic["Execute Target API Controller Logic"]
+    AllowNotary --> ExecuteLogic["Execute Target API Controller Logic"]
+    AllowOwner --> ExecuteLogic["Execute Target API Controller Logic"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d50">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">50. Signature Validator Flow</h3>
+                        <p class="diagram-desc">Visualizes how digital signature verification confirms document hash provenance.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c50')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c50">
+graph TD
+    Doc["Verification Candidate Document"] --> FetchSign["Extract Embedded Cryptographic Signature Meta"]
+    FetchSign --> ComputeHash["Generate document file hash locally"]
+    ComputeHash --> QueryBC["Query BNB Chain: verifyDocument(bytes32 docHash)"]
+    
+    MatchCheck{"Does signature verify on BNB Smart Chain?"}
+    ComputeHash --> MatchCheck
+    MatchCheck -->|No| FailVerify["Fail: File has been tampered with"]
+    MatchCheck -->|Yes| FetchSigner["Retrieve signing Notary and timestamps from smart contract"]
+    FetchSigner --> Complete["Status Confirmed: Document Authenticated"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d51">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">51. Watermark Detection Flow</h3>
+                        <p class="diagram-desc">Maps the system verification engine which flags tampered files.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c51')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c51">
+graph TD
+    Start["User uploads file for verification checks"] --> HashCheck["Calculate SHA-256 Hash of candidate file"]
+    HashCheck --> FetchBlock["Query DocumentRegistry contract for calculated Hash"]
+    FetchBlock --> CheckExist{"Does hash record exist on-chain?"}
+    
+    CheckExist -->|No Match| QueryDB["Search local database for original upload filename record"]
+    QueryDB --> CheckFilename{"Filename match exists?"}
+    CheckFilename -->|Yes| Tampered["Tamper Detected: Content has been modified since upload!"]
+    CheckFilename -->|No| Unregistered["Document not registered in BBSNS database"]
+    
+    CheckExist -->|Match Found| Safe["State Confirmed: File matches on-chain anchor exactly!"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d52">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">52. Verification QR Coordinates Flow</h3>
+                        <p class="diagram-desc">Details how validation QR codes resolve to target anchors.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c52')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c52">
+sequenceDiagram
+    autonumber
+    actor Validator as "External Verifier"
+    participant QR as "QR Code Scan Reader"
+    participant WebApp as "Verification Portal (app.bbsns.online)"
+    participant API as "Central API Engine"
+    participant BC as "BNB Chain Network"
+
+    Validator->>QR: Scan document certificate QR Code
+    QR->>WebApp: Open verification URL Link
+    WebApp->>API: GET /api/verify/hash/:hashValue
+    API->>BC: Call verifyDocument(hashValue) on-chain
+    BC-->>API: Return (isNotarized = true, timestamp, NotaryAddress)
+    API->>API: Query database for associated transaction records
+    API-->>WebApp: Return validation package (User Name, Notary ID, Chain Block)
+    WebApp-->>Validator: Render 'Authentic Document Certificate' details UI
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d53">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">53. Solidity Modifiers Permissions</h3>
+                        <p class="diagram-desc">Traces how Solidity modifiers protect smart contract methods.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c53')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c53">
+graph TD
+    Call["External smart contract method call received"] --> CheckRole{"Determine calling wallet Address role"}
+    
+    subgraph "Modifier Guard Checks"
+        CheckRole -->|Notary Registry Only| ModNotaryRegistry{"onlyNotaryRegistry modifier"}
+        CheckRole -->|Governance Multisig Only| ModGovernance{"onlyGovernance modifier"}
+        CheckRole -->|System Owner Only| ModOwner{"onlyOwner modifier"}
+    end
+
+    ModNotaryRegistry --> CheckPass{"Does caller satisfy conditions?"}
+    ModGovernance --> CheckPass{"Does caller satisfy conditions?"}
+    ModOwner --> CheckPass{"Does caller satisfy conditions?"}
+    CheckPass -->|No| Revert["Revert Transaction (State rolled back)"]
+    CheckPass -->|Yes| ExecuteSolidity["Execute execution logic in smart contract"]
+                    </pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8 -->
+        <section>
+            <h2>Section 8 — Slide Visuals</h2>
+
+            <div class="diagram-container" id="d54">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">54. Simplified Executive Architecture</h3>
+                        <p class="diagram-desc">A concise view designed for executive summaries or slide decks.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c54')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c54">
+graph LR
+    ClientUI["Client Web & Desktop Apps"]
+    SpringBootAPI["Spring Boot Middleware"]
+    DB_Postgres[("PostgreSQL DB")]
+    AWS_S3[("AWS S3 Vault")]
+    BNBChain[("BNB Smart Chain")]
+
+    ClientUI <-->|HTTPS REST| SpringBootAPI
+    SpringBootAPI <-->|Data Cache / Audit| DB_Postgres
+    SpringBootAPI <-->|Secure Document Uploads| AWS_S3
+    SpringBootAPI <-->|Decentralized Anchoring| BNBChain
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d55">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">55. One-Page Complete Workflow</h3>
+                        <p class="diagram-desc">Captures the full system lifecycle (Owner upload to final certificate verification) in a single visual sheet.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c55')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c55">
+graph TD
+    subgraph "Phase 1: Registration"
+        Owner["Owner Sign-up"] --> ConnectWallet["Connect Client Wallet"]
+        ConnectWallet --> InputCredentials["National ID & Email Verification Check"]
+    end
+
+    subgraph "Phase 2: Upload"
+        InputCredentials --> LocalHash["Local Hash Generation"]
+        LocalHash --> PresignURL["AWS S3 Secure Upload"]
+    end
+
+    subgraph "Phase 3: Notarization"
+        PresignURL --> NotaryQueue["Notary Document Review Audit Queue"]
+        NotaryQueue --> Biometrics["Liveness & Face Verification Match Check"]
+        Biometrics --> BlockAnchor["Solidify Anchoring Hash on BNB Chain"]
+    end
+
+    subgraph "Phase 4: Verification"
+        BlockAnchor --> QRGen["Generate Verification QR & PDF Certificate"]
+        QRGen --> ExternalVerify["Public QR Verification Portal Check"]
+    end
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d56">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">56. Simple Viva Helper Flow</h3>
+                        <p class="diagram-desc">A high-level visual aid to guide examiners through the system's core value proposition during project evaluation.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c56')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c56">
+graph TD
+    Upload["User uploads document file"] --> Hash["Local SHA-256 Hash calculated on Client Browser"]
+    Hash --> Review["Notary reviews S3 File content preview"]
+    Review --> Biometrics["Face Verification match check holds Notary liveness"]
+    Biometrics --> Anchor["Hash securely anchored to BNB Testnet Block"]
+    Anchor --> PDFCert["System issues a QR watermarked validation Certificate"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d57">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">57. Transaction Proof Anchoring</h3>
+                        <p class="diagram-desc">Demonstrates how document trust is proved cryptographically.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c57')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c57">
+graph TD
+    Doc["Raw Document Data"] --> SHA256["SHA-256 Hashing Process"]
+    SHA256 --> PrivateKey["Notary Cryptographic Wallet Sign-off Signature"]
+    PrivateKey --> Tx["Submit Blockchain Anchoring payload"]
+    Tx --> Event["Document Registry Smart Contract Anchored Log Event"]
+    Event --> PublicProof["Publicly auditable, immutable decentralized proof verification"]
+                    </pre>
+                </div>
+            </div>
+
+            <div class="diagram-container" id="d58">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">58. Trust Flow</h3>
+                        <p class="diagram-desc">Summary visual on how BBSNS removes intermediate single-points-of-failure to achieve trust.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c58')">Copy Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c58">
+graph LR
+    Identity["Biometric / Face Onboarding Verification"] --> Authenticity["EIP-712 cryptographic signature bounds User"]
+    Authenticity --> Integrity["AWS S3 metadata secured by SHA-256 Hash checks"]
+    Integrity --> Decentralization["BNB Smart Chain anchors proof immutably"]
+    Decentralization --> Trust["Trust Established!"]
+                    </pre>
+                </div>
+            </div>
+        
+            <div class="diagram-container" id="d59">
+                <div class="diagram-header">
+                    <div>
+                        <h3 class="diagram-title">59. Governance: Admin Promotion Flow</h3>
+                        <p class="diagram-desc">Multi-signature flow mapping the promotion of a user to Admin.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('c59')">Copy Mermaid Code</button>
+                </div>
+                <div class="mermaid-canvas">
+                    <pre class="mermaid" id="c59">
+graph TD
+    subgraph UI[User Interface]
+        A[Admin clicks 'Promote']
+        A -- Creates --> B[Single Proposal: Promote Admin]
+        style B fill:#90EE90,color:#000
+    end
+    
+    B -- "Votes & Executes" --> C[MultiSig: promoteAdmin]
+    
+    subgraph MSG[BBSNSMultiSigV2 Contract]
+        C
+        C -- "Step 1: Internal" --> D[addSigner logic]
+        C -- "Step 2: External" --> E[Calls Registry]
+    end
+    
+    D -.-> G[User becomes Signer]
+    E -. Executes .-> H[NotaryRegistry: promoteToAdmin]
+    
+    subgraph REG[NotaryRegistry Contract]
+        H
+    end
+    
+    H -.-> I[User becomes Admin]
+                    </pre>
+                </div>
+            </div>
+</section>
+
+        
+        
+        
+        <!-- SCREENSHOT FLOWS -->
+        <div id="screenshots-flows">
+            <h1 style="font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 32px;">System Screenshot Flows</h1>
+            
+        <section style="margin-bottom: 64px;">
+            <h2>Owner Flow</h2>
+            <div class="mockup-grid">
+
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign up Step 3 Biometric Check </h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign up Step 3 Biometric Check .png" alt="Owner Sign up Step 3 Biometric Check " style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-1')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-1">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the 'Liveness' step (Step 3) of the BBSNS user registration process. A live camera feed with facial tracking lines captures the user's face, displaying the instruction '[1/2] Turn your head slightly RIGHT' to perform a biometric check.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign up step 3 completed</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign up step 3 completed.png" alt="Owner Sign up step 3 completed" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-2')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-2">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the successful completion of the 'Liveness' step in the BBSNS user registration. It displays an 'Identity Verified' confirmation message indicating the liveness check was completed successfully.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign up Step 4 Wallet binding</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign up Step 4 Wallet binding.png" alt="Owner Sign up Step 4 Wallet binding" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-3')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-3">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the 'Connect Wallet' step (Step 4) of the BBSNS registration flow, displaying a successful wallet connection within the app's UI. The MetaMask extension is visible on the right, showing the connected account details and a BNB Chain Testnet balance.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign Up Step 4 Signature For Confirmation</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign Up Step 4 Signature For Confirmation.png" alt="Owner Sign Up Step 4 Signature For Confirmation" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-4')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-4">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot depicts the final registration step where the user is required to finalize their account creation by signing a message in their connected blockchain wallet. The MetaMask extension prompts a 'Signature request' containing a structured message specific to the BBSNS registration.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign Up Completed</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign Up Completed.png" alt="Owner Sign Up Completed" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-5')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-5">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the 'Welcome Back' sign-in page of the BBSNS application along with a toast notification stating 'Account Created successfully.' This confirms the completion of the multi-step registration process and prompts the user to sign in using their wallet, email, password, and National ID.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Sign In Signature</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Sign In Signature.png" alt="Owner Sign In Signature" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-6')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-6">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot displays the BBSNS multi-factor authentication sign-in screen alongside a MetaMask signature request. The user is attempting to sign in, which requires them to cryptographically sign a specific login message via their connected wallet to authenticate.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Buying NTKR Token</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Buying NTKR Token.png" alt="Owner Buying NTKR Token" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-7')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-7">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the 'Buy Tokens' page within the BBSNS dashboard where a document owner is initiating a purchase of 5 NTKR tokens using BNB. A MetaMask transaction request popup is visible on the right side, asking the user to confirm the purchase on the BNB Chain Testnet.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Dashboard</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Dashboard.png" alt="Owner Dashboard" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-8')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-8">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot displays the main BBSNS dashboard for a Document Owner with an empty document list. It highlights key metrics such as Total Documents, Verified, Pending, and Rejected notarizations, while the MetaMask extension shows the connected wallet's current balance and network status.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Document Upload Process And NTKR BURN</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Document Upload Process And NTKR BURN.png" alt="Owner Document Upload Process And NTKR BURN" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-9')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-9">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot shows the Document Owner uploading a file and being prompted by MetaMask to confirm a transaction. This step involves burning 1 NTKR token on the BNB Chain Testnet to initiate the blockchain notarization process.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Ower NTKR Burn Transaction Confirmed</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Ower NTKR Burn Transaction Confirmed.png" alt="Ower NTKR Burn Transaction Confirmed" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-10')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-10">
+                        <strong>About this screenshot:</strong><br/>
+                        The image displays the BBSNS upload interface indicating that the NTKR burn transaction has been successfully submitted to the BNB Testnet. The system is currently waiting for block confirmation before proceeding to the next step.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owner Dashboard Document Status changed to approved</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owner Dashboard Document Status changed to approved.png" alt="Owner Dashboard Document Status changed to approved" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-11')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-11">
+                        <strong>About this screenshot:</strong><br/>
+                        The Document Owner's dashboard shows an updated status where a document named 'Assign Indexes' is marked as 'Approved'. The dashboard also reflects that one document has been successfully notarized, deducting the corresponding NTKR fee.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Owners Final Document Verifiable Certificate</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Owners Final Document Verifiable Certificate.png" alt="Owners Final Document Verifiable Certificate" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-12')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-12">
+                        <strong>About this screenshot:</strong><br/>
+                        This is a comprehensive Certificate of Notarization generated by the BBSNS platform for an approved document. It provides cryptographic proof, including the SHA-256 hash, blockchain transaction details, and a QR code for independent verification.
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
+            
+        <section style="margin-bottom: 64px;">
+            <h2>Notary Flow</h2>
+            <div class="mockup-grid">
+
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Register Phase 1</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Register Phase 1.png" alt="Notary Register Phase 1" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-13')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-13">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot illustrates the first phase of the Notary Registration process, requiring the applicant to input personal and professional details. Fields include legal name, contact information, National ID, and license number to establish their official identity.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Register Phase 2</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Register Phase 2.png" alt="Notary Register Phase 2" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-14')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-14">
+                        <strong>About this screenshot:</strong><br/>
+                        The image shows the 'Biometric Liveness' check, which is the second phase of Notary Registration. A real-time webcam feed is being analyzed to verify the applicant's physical presence and match it against their provided identity.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Register Phase 3</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Register Phase 3.png" alt="Notary Register Phase 3" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-15')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-15">
+                        <strong>About this screenshot:</strong><br/>
+                        The final phase of Notary Registration displays a success screen confirming that the identity has been cryptographically secured and queued for review. System notifications confirm that the wallet signature is valid and the KYC data is locked.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Wallet Confirmation Before Activation</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Wallet Confirmation Before Activation.png" alt="Notary Wallet Confirmation Before Activation" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-16')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-16">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot displays a remote authentication screen asking the newly registered Notary to connect their authorized wallet. The MetaMask extension is visible, showing recent contract interactions on the BNB Smart Chain Testnet required for account activation.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Email For Activation Of Account</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Email For Activation Of Account.png" alt="Notary Email For Activation Of Account" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-17')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-17">
+                        <strong>About this screenshot:</strong><br/>
+                        This screenshot displays an email notifying a user that their BBSNS notary application has been approved. It features a prominent 'Activate Account' button used to securely transition the user into the profile setup phase.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Account Activation</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Account Activation.png" alt="Notary Account Activation" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-18')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-18">
+                        <strong>About this screenshot:</strong><br/>
+                        The image shows the BBSNS Remote Auth web interface where a notary is prompted to set a secure password after their wallet is verified. Alongside it, a MetaMask extension requests a signature for a BBSNS::NOTARY_ACTIVATE message on the BNB Smart Chain Testnet to bind the credentials.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Account Activation Confirmed</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Account Activation Confirmed.png" alt="Notary Account Activation Confirmed" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-19')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-19">
+                        <strong>About this screenshot:</strong><br/>
+                        This depicts the successful completion of the notary activation process on the BBSNS Remote Auth screen. The accompanying MetaMask panel confirms recent transaction activity on the testnet, signaling the account is fully initialized.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Login Step 1</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Login Step 1.png" alt="Notary Login Step 1" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-20')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-20">
+                        <strong>About this screenshot:</strong><br/>
+                        This screenshot captures the first step of the Notary Login sequence in the BBSNS application. The user is prompted to enter their registered email address and password to begin the authentication process.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Login Step 2</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Login Step 2.png" alt="Notary Login Step 2" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-21')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-21">
+                        <strong>About this screenshot:</strong><br/>
+                        Step two of the Notary Login workflow requires the user to input their National ID for identity confirmation. The system explicitly notes that this identifier will be verified against on-chain records to ensure authenticity.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Login Step 3.1</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Login Step 3.1.png" alt="Notary Login Step 3.1" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-22')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-22">
+                        <strong>About this screenshot:</strong><br/>
+                        The third step of the login process directs the notary to perform blockchain-based identity verification. An 'Open Browser to Sign' button is provided to seamlessly transition the authentication handshake to a Web3 wallet interface.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Login Step 3.2</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Login Step 3.2.png" alt="Notary Login Step 3.2" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-23')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-23">
+                        <strong>About this screenshot:</strong><br/>
+                        This image shows the final login authorization step occurring in the browser via BBSNS Remote Auth. A MetaMask prompt asks the user to cryptographically sign a BBSNS::LOGIN message to grant access to the notary console.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Dashboard</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Dashboard.png" alt="Notary Dashboard" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-24')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-24">
+                        <strong>About this screenshot:</strong><br/>
+                        The screenshot displays the main Notary Dashboard within the BBSNS Console, accessible after successful multi-step authentication. It provides an overview of the notary's workload, including pending document requests and their current NTK token balance.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Pending Work</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Pending Work.png" alt="Notary Pending Work" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-25')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-25">
+                        <strong>About this screenshot:</strong><br/>
+                        This shows the Notary's dashboard in the BBSNS Console, specifically the 'Pending Tasks' view which lists documents awaiting notarization review.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Action View Document for Notarisation</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Action View Document for Notarisation.png" alt="Notary Action View Document for Notarisation" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-26')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-26">
+                        <strong>About this screenshot:</strong><br/>
+                        This displays the detailed review screen where a Notary can inspect a submitted document, verify the owner's information and file hash, and choose to Approve or Reject the request using their available NTK balance.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Process Info about document to approve it</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Process Info about document to approve it.png" alt="Notary Process Info about document to approve it" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-27')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-27">
+                        <strong>About this screenshot:</strong><br/>
+                        This captures a confirmation modal requiring the Notary to input a summary of the document's contents before finalizing the approval, noting that this summary will be permanently recorded on the blockchain.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Approved View</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Approved View.png" alt="Notary Approved View" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-28')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-28">
+                        <strong>About this screenshot:</strong><br/>
+                        This shows the post-approval state of a document review screen, indicating the status as 'Approved', a deducted NTK balance, and the notarization transaction marked as completed.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notarize Doc and Pay NTK</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notarize Doc and Pay NTK.png" alt="Notarize Doc and Pay NTK" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-29')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-29">
+                        <strong>About this screenshot:</strong><br/>
+                        This illustrates the BBSNS remote authentication process alongside a MetaMask prompt, where the Notary is asked to authorize a blockchain transaction and pay the network fee for the notarization.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notarize Document And Pay NTK</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notarize Document And Pay NTK.png" alt="Notarize Document And Pay NTK" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-30')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-30">
+                        <strong>About this screenshot:</strong><br/>
+                        This displays a MetaMask signature request where the Notary cryptographically signs the specific notarization payload, which includes the document hash, owner address, and summary hash.
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
+            
+        <section style="margin-bottom: 64px;">
+            <h2>Admin & Governance Flow</h2>
+            <div class="mockup-grid">
+
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Notary Application Created</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Notary Application Created.png" alt="Notary Application Created" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-31')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-31">
+                        <strong>About this screenshot:</strong><br/>
+                        This shows the completion of the cryptographic binding phase during a Notary's registration, confirming their wallet is successfully bound to their professional ID prior to finalizing the application.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Admin Dashboard Notary Application Pending Screen</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Admin Dashboard Notary Application Pending Screen.png" alt="Admin Dashboard Notary Application Pending Screen" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-32')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-32">
+                        <strong>About this screenshot:</strong><br/>
+                        This presents the Admin's 'Notary Management' dashboard, listing notary candidates along with their verification statuses and providing options to approve or reject pending applications.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Admin Dashboard Notary Application Details</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Admin Dashboard Notary Application Details.png" alt="Admin Dashboard Notary Application Details" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-33')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-33">
+                        <strong>About this screenshot:</strong><br/>
+                        This details the specific profile information of a notary applicant in an Admin modal, displaying their verified identity credentials, on-chain wallet address, and final approval controls.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Admin Dashboard Notary Role Applied onchain confirmed</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Admin Dashboard Notary Role Applied onchain confirmed.png" alt="Admin Dashboard Notary Role Applied onchain confirmed" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-34')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-34">
+                        <strong>About this screenshot:</strong><br/>
+                        This image shows the BBSNS Console's Notary Management page where an admin is reviewing notary applications. A notification confirms that the secure authorization portal is opening and the on-chain blockchain role for candidate 'Shubh Mate' has been finalized.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Admin Finalizing Notary Role Onchain </h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Admin Finalizing Notary Role Onchain .png" alt="Admin Finalizing Notary Role Onchain " style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-35')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-35">
+                        <strong>About this screenshot:</strong><br/>
+                        A UI modal titled 'Activation Complete' confirms that the notary application for 'Shubh Mate' is approved. It prompts the admin to finalize the on-chain notary role assignment by confirming the registry target address via their administrative wallet.
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
+            
+        <section style="margin-bottom: 64px;">
+            <h2>Architecture & System Evidence</h2>
+            <div class="mockup-grid">
+
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">1 Cloud Connection</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="1 Cloud Connection.png" alt="1 Cloud Connection" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-36')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-36">
+                        <strong>About this screenshot:</strong><br/>
+                        A Windows PowerShell terminal showing a successful SSH connection to an Ubuntu 22.04 LTS cloud instance. This verifies secure remote access to the BBSNS backend server.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">2 Running Processes On Cloud</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="2 Running Processes On Cloud.png" alt="2 Running Processes On Cloud" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-37')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-37">
+                        <strong>About this screenshot:</strong><br/>
+                        A terminal showing the `pm2 list` output, confirming that all core BBSNS microservices are online. This includes the backend, frontend, reconciliation, remote-auth, role-sync, and scavenger processes.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">3 Backend Runtime Logs</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="3 Backend Runtime Logs.png" alt="3 Backend Runtime Logs" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-38')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-38">
+                        <strong>About this screenshot:</strong><br/>
+                        A terminal displaying live PM2 logs for the `bbsns-backend` service. The logs verify environment consistency, configuration checksum generation, circuit breaker initialization, and successful loading of BSC smart contract addresses.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">4 Api Health check</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="4 Api Health check.png" alt="4 Api Health check" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-39')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-39">
+                        <strong>About this screenshot:</strong><br/>
+                        A terminal displaying a `curl` response from the BBSNS API health endpoint. The JSON payload indicates a 'STABLE' system status with 'OK' checks for the database, blockchain RPC, and system configuration.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">5 DB List of relations</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="5 DB List of relations.png" alt="5 DB List of relations" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-40')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-40">
+                        <strong>About this screenshot:</strong><br/>
+                        A `psql` interface connected to the `notarydb` database, displaying a list of 28 table relations. Key tables supporting the BBSNS flow are visible, including `documents`, `notary_applications`, `upload_intents`, and `users`.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">6 All Contract and Deployer</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="6 All Contract and Deployer.png" alt="6 All Contract and Deployer" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-41')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-41">
+                        <strong>About this screenshot:</strong><br/>
+                        A view of BscScan on the BSC Testnet showing the transaction history for a deployer address. It confirms that multiple 'Contract Creation' transactions were executed to deploy the BBSNS smart contracts on-chain.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">Digital Certificate of confirmation </h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Digital Certificate of confirmation .png" alt="Digital Certificate of confirmation " style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-42')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-42">
+                        <strong>About this screenshot:</strong><br/>
+                        A UI modal presenting a 'Notarization Certificate' that provides blockchain-verified proof for a document. It includes the file hash, registry address, BSC Testnet network details, and the authorizing notary's identity.
+                    </div>
+                </div>
+        
+                <div class="diagram-container">
+                    <div class="diagram-header">
+                        <h3 class="diagram-title">z BBSNS Verification Of Document Hash For Tempering</h3>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="z BBSNS Verification Of Document Hash For Tempering.png" alt="z BBSNS Verification Of Document Hash For Tempering" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                    <div class="image-card-actions">
+                        <button class="expand-btn" onclick="toggleImageDetails(this, 'details-43')">View Details</button>
+                    </div>
+                    <div class="image-details" id="details-43">
+                        <strong>About this screenshot:</strong><br/>
+                        The BBSNS Public Document Verification portal displaying a successfully verified document. It confirms the SHA-256 hash matches the immutable ledger evidence on the BNB Smart Chain, preventing any tampering.
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+
+        </div>
+
+    </main>
+
+    <!-- FULLSCREEN GLASSMORPHIC ZOOM MODAL -->
+    <div class="zoom-modal" id="zoomModal">
+        <button class="close-zoom" onclick="closeModal()">&times;</button>
+        <div class="zoom-modal-content" id="modalContent">
+            <div id="zoomSvgContainer"></div>
+        </div>
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomOutBtn">-</button>
+            <button class="zoom-btn" id="zoomResetBtn">1:1</button>
+            <button class="zoom-btn" id="zoomInBtn">+</button>
+        </div>
+    </div>
+
+    
+    <!-- RAW SAVER FOR COPY BUTTON -->
+    <script>
+        document.querySelectorAll('pre.mermaid').forEach(el => {
+            el.dataset.raw = el.textContent.trim();
+        });
+    </script>
+    <!-- LOADING MERMAID INTEGRATIONS FROM ESM CDN -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'neutral',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+    </script>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        
+        function toggleImageDetails(btn, id) {
+            const detailsDiv = document.getElementById(id);
+            if (detailsDiv.classList.contains('active')) {
+                detailsDiv.classList.remove('active');
+                btn.innerText = 'View Details';
+            } else {
+                detailsDiv.classList.add('active');
+                btn.innerText = 'Hide Details';
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const content = document.querySelector('.content');
+            if (sidebar.style.display === 'none') {
+                sidebar.style.display = 'block';
+                content.style.marginLeft = '320px';
+            } else {
+                sidebar.style.display = 'none';
+                content.style.marginLeft = '0px';
+            }
+        }
+
+        function copyCode(id) {
+            const codeElement = document.getElementById(id);
+            if (!codeElement) return;
+            const codeText = codeElement.dataset.raw || codeElement.innerText.trim();
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('Mermaid code copied to clipboard successfully!');
+            }).catch(err => {
+                console.error('Failed to copy code: ', err);
+            });
+        }
+
+        function exportToMermaidLive() {
+            window.open('https://mermaid.live', '_blank');
+        }
+
+        /* -----------------------------------------
+           INTERACTIVE ZOOM MODAL & PAN SCRIPTS
+        ------------------------------------------- */
+        let currentScale = 1;
+        let currentTranslateX = 0;
+        let currentTranslateY = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        const modal = document.getElementById('zoomModal');
+        const modalContent = document.getElementById('modalContent');
+        const zoomSvgContainer = document.getElementById('zoomSvgContainer');
+
+        document.querySelectorAll('.mermaid-canvas').forEach(canvas => {
+            canvas.addEventListener('click', function() {
+                const svg = this.querySelector('svg');
+                if (!svg) return;
+                
+                // Clone the SVG inside modal
+                zoomSvgContainer.innerHTML = '';
+                const clonedSvg = svg.cloneNode(true);
+                clonedSvg.setAttribute('id', 'zoomed-svg');
+                
+                // Remove style constraints
+                clonedSvg.style.width = 'auto';
+                clonedSvg.style.height = 'auto';
+                clonedSvg.style.maxWidth = 'none';
+                clonedSvg.style.maxHeight = 'none';
+                
+                zoomSvgContainer.appendChild(clonedSvg);
+                
+                // Reset transform values
+                currentScale = 1;
+                currentTranslateX = 0;
+                currentTranslateY = 0;
+                updateTransform();
+                
+                modal.classList.add('active');
+            });
+        });
+
+        function updateTransform() {
+            const svg = document.getElementById('zoomed-svg');
+            if (svg) {
+                svg.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${currentScale})`;
+            }
+        }
+
+        // Zoom Controls
+        document.getElementById('zoomInBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            currentScale += 0.15;
+            updateTransform();
+        });
+
+        document.getElementById('zoomOutBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (currentScale > 0.3) {
+                currentScale -= 0.15;
+                updateTransform();
+            }
+        });
+
+        document.getElementById('zoomResetBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            currentScale = 1;
+            currentTranslateX = 0;
+            currentTranslateY = 0;
+            updateTransform();
+        });
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Drag to Pan
+        modalContent.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+            startX = e.clientX - currentTranslateX;
+            startY = e.clientY - currentTranslateY;
+        });
+
+        window.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            currentTranslateX = e.clientX - startX;
+            currentTranslateY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        // Wheel zoom support
+        modalContent.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const zoomIntensity = 0.05;
+            if (e.deltaY < 0) {
+                currentScale += zoomIntensity;
+            } else {
+                if (currentScale > 0.3) {
+                    currentScale -= zoomIntensity;
+                }
+            }
+            updateTransform();
+        });
+
+        /* -----------------------------------------
+           VOTING MODULE SIMULATOR SCRIPTS
+        ------------------------------------------- */
+        function castVote(action) {
+            const yourStatus = document.getElementById('your-voter-status');
+            const fillBar = document.getElementById('consensus-bar');
+            const percentLabel = document.getElementById('consensus-percent');
+            const actionPanel = document.getElementById('voting-action-panel');
+            
+            if (action === 'approve') {
+                yourStatus.innerText = 'SIGNED ✓';
+                yourStatus.className = 'voter-status signed';
+                fillBar.style.width = '100%';
+                percentLabel.innerText = '100% (3/3 Consensus Met)';
+                actionPanel.innerHTML = '<div style="flex: 1; padding: 12px; border-radius: 6px; background-color: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); font-weight: 700; text-align: center; text-transform: uppercase; font-family: \'JetBrains Mono\';">Consensus Achieved: Transmitting Anchor to BNB Chain...</div>';
+            } else {
+                yourStatus.innerText = 'REJECTED ✗';
+                yourStatus.className = 'voter-status';
+                yourStatus.style.color = 'var(--danger)';
+                percentLabel.innerText = '66.6% (Proposal Defeated)';
+                actionPanel.innerHTML = '<div style="flex: 1; padding: 12px; border-radius: 6px; background-color: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); font-weight: 700; text-align: center; text-transform: uppercase; font-family: \'JetBrains Mono\';">Proposal Terminated by Administrator</div>';
+            }
+        }
+    </script>
+</body>
+</html>
