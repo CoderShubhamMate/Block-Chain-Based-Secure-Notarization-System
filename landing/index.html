@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBSNS | Blockchain Based Secure Notarization System</title>
+  <meta name="description" content="Experience the future of document authentication with our blockchain-based notarization system. Secure, transparent, and legally binding document verification at your fingertips.">
+  <meta name="keywords" content="blockchain, notarization, secure documents, digital authentication, notary platform, smart contracts">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='shieldGradient' x1='0' y1='0' x2='180' y2='180' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%2310b981' /%3E%3Cstop offset='100%25' stop-color='%233b82f6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='%230A2540' /%3E%3Cg transform='translate%2845, 40%29 scale%283.8%29'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10' stroke='url%28%23shieldGradient%29' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' /%3E%3Cpath d='M12 8v4M12 16h.01' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS Styling -->
+  <style>
+    /* Styling & Colors matching globals.css */
+    :root {
+      --background-hsl: 0, 0%, 100%;
+      --foreground-hsl: 222.2, 84%, 4.9%;
+      --card-hsl: 0, 0%, 100%;
+      --card-foreground-hsl: 222.2, 84%, 4.9%;
+      --popover-hsl: 0, 0%, 100%;
+      --popover-foreground-hsl: 222.2, 84%, 4.9%;
+      --primary-hsl: 221.2, 83.2%, 53.3%;
+      --primary-foreground-hsl: 210, 40%, 98%;
+      --secondary-hsl: 210, 40%, 96.1%;
+      --secondary-foreground-hsl: 222.2, 47.4% 11.2%;
+      --muted-hsl: 210, 40%, 96.1%;
+      --muted-foreground-hsl: 215.4, 16.3%, 46.9%;
+      --accent-hsl: 210, 40%, 96.1%;
+      --accent-foreground-hsl: 222.2, 47.4%, 11.2%;
+      --destructive-hsl: 0, 84.2%, 60.2%;
+      --destructive-foreground-hsl: 210, 40%, 98%;
+      --border-hsl: 214.3, 31.8%, 91.4%;
+      --input-hsl: 214.3, 31.8%, 91.4%;
+      --ring-hsl: 221.2, 83.2%, 53.3%;
+      --radius: 1rem;
+      
+      --background: hsl(var(--background-hsl));
+      --foreground: hsl(var(--foreground-hsl));
+      --card: hsl(var(--card-hsl));
+      --card-foreground: hsl(var(--card-foreground-hsl));
+      --primary: hsl(var(--primary-hsl));
+      --primary-foreground: hsl(var(--primary-foreground-hsl));
+      --secondary: hsl(var(--secondary-hsl));
+      --secondary-foreground: hsl(var(--secondary-foreground-hsl));
+      --muted: hsl(var(--muted-hsl));
+      --muted-foreground: hsl(var(--muted-foreground-hsl));
+      --accent: hsl(var(--accent-hsl));
+      --accent-foreground: hsl(var(--accent-foreground-hsl));
+      --border: hsl(var(--border-hsl));
+      --card-bg-opacity: 0.8;
+    }
+
+    html.dark {
+      --background-hsl: 222.2, 84%, 4.9%;
+      --foreground-hsl: 210, 40%, 98%;
+      --card-hsl: 222.2, 84%, 4.9%;
+      --card-foreground-hsl: 210, 40%, 98%;
+      --popover-hsl: 222.2, 84%, 4.9%;
+      --popover-foreground-hsl: 210, 40%, 98%;
+      --primary-hsl: 217.2, 91.2%, 59.8%;
+      --primary-foreground-hsl: 222.2, 47.4%, 11.2%;
+      --secondary-hsl: 217.2, 32.6%, 17.5%;
+      --secondary-foreground-hsl: 210, 40%, 98%;
+      --muted-hsl: 217.2, 32.6%, 17.5%;
+      --muted-foreground-hsl: 215, 20.2%, 65.1%;
+      --accent-hsl: 217.2, 32.6%, 17.5%;
+      --accent-foreground-hsl: 210, 40%, 98%;
+      --destructive-hsl: 0, 62.8%, 30.6%;
+      --destructive-foreground-hsl: 210, 40%, 98%;
+      --border-hsl: 217.2, 32.6%, 17.5%;
+      --input-hsl: 217.2, 32.6%, 17.5%;
+      --ring-hsl: 224.3, 76.3%, 48%;
+      --card-bg-opacity: 0.6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border-color: var(--border);
+    }
+
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Container Utility */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Sticky Header styling */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(var(--background-hsl), 0.85);
+      transition: border-color 0.4s, background-color 0.4s, box-shadow 0.3s;
+    }
+    
+    header.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    html.dark header.scrolled {
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .header-content {
+      display: flex;
+      height: 4rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--foreground);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      transition: transform 0.2s ease;
+    }
+
+    .logo-link:hover {
+      transform: scale(1.03);
+    }
+
+    .logo-icon-svg {
+      width: 2rem;
+      height: 2rem;
+      color: var(--primary);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-link:hover .logo-icon-svg {
+      transform: rotateY(180deg) scale(1.1);
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--foreground);
+      text-decoration: none;
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-sm {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.8125rem;
+    }
+
+    .btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: calc(var(--radius) * 1.25);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      box-shadow: 0 4px 14px rgba(var(--primary-hsl), 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(var(--primary-hsl), 0.35);
+      filter: brightness(1.08);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(var(--primary-hsl), 0.5);
+      color: var(--foreground);
+      background-color: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      background-color: rgba(var(--primary-hsl), 0.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      color: var(--foreground);
+      background-color: transparent;
+    }
+
+    .btn-ghost:hover {
+      background-color: rgba(var(--secondary-hsl), 0.8);
+      color: var(--primary);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle-btn {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--foreground);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.2s;
+    }
+
+    .theme-toggle-btn:hover {
+      background-color: rgba(var(--secondary-hsl), 0.8);
+    }
+
+    .theme-toggle-btn svg {
+      position: absolute;
+      width: 1.15rem;
+      height: 1.15rem;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+    }
+
+    .sun-icon {
+      opacity: 0;
+      transform: rotate(90deg) scale(0);
+    }
+    
+    .moon-icon {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+
+    html.dark .sun-icon {
+      opacity: 1;
+      transform: rotate(0) scale(1);
+    }
+
+    html.dark .moon-icon {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0);
+    }
+
+    /* Main Section Background & Orbs */
+    .hero-section {
+      padding: 6rem 1rem 5rem 1rem;
+      text-align: center;
+      background: radial-gradient(circle at top right, rgba(var(--primary-hsl), 0.12), transparent 45%),
+                  radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08), transparent 40%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .hero-section {
+        padding: 8rem 1rem 7rem 1rem;
+      }
+    }
+
+    /* Glowing animated background orbs */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      top: -10rem;
+      right: -10rem;
+      width: 25rem;
+      height: 25rem;
+      background: rgba(var(--primary-hsl), 0.15);
+      animation: rotateScale 20s infinite alternate linear;
+    }
+
+    .orb-2 {
+      bottom: -12rem;
+      left: -12rem;
+      width: 30rem;
+      height: 30rem;
+      background: rgba(16, 185, 129, 0.1);
+      animation: rotateScale 25s infinite alternate-reverse linear;
+    }
+
+    .orb-3 {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20rem;
+      height: 20rem;
+      background: rgba(99, 102, 241, 0.05);
+      animation: rotateScale 30s infinite alternate linear;
+    }
+
+    @keyframes rotateScale {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+      100% {
+        transform: rotate(360deg) scale(1.15);
+      }
+    }
+
+    .hero-container {
+      position: relative;
+      z-index: 10;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* floating group of icons */
+    .icon-float-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      perspective: 1000px;
+    }
+
+    .floating-icons-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+      border-radius: 20px;
+      background-color: rgba(var(--card-hsl), var(--card-bg-opacity));
+      border: 1px solid rgba(var(--border-hsl), 0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
+      animation: float 4s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+    
+    html.dark .floating-icons-card {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .floating-icons-card:hover {
+      transform: scale(1.05) rotateX(10deg) rotateY(10deg);
+      box-shadow: 0 30px 60px rgba(22, 78, 99, 0.15);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating-icon-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s ease;
+    }
+
+    .floating-icons-card:hover .floating-icon-item:nth-child(1) { transform: translateZ(20px); }
+    .floating-icons-card:hover .floating-icon-item:nth-child(2) { transform: translateZ(30px); }
+    .floating-icons-card:hover .floating-icon-item:nth-child(3) { transform: translateZ(20px); }
+
+    .floating-icon-item svg {
+      width: 2.75rem;
+      height: 2.75rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    }
+
+    .text-emerald { color: #10b981; }
+    .text-teal { color: #0d9488; }
+    .text-indigo { color: #4f46e5; }
+    .text-primary-color { color: var(--primary); }
+
+    /* Headline & Subhead */
+    .hero-title {
+      font-size: 2.25rem;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: var(--foreground);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3.75rem;
+      }
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--primary) 0%, #10b981 50%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: var(--muted-foreground);
+      max-width: 700px;
+      margin: 0 auto 2.5rem auto;
+      text-pretty: true;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.3s;
+    }
+
+    @media (min-width: 768px) {
+      .hero-description {
+        font-size: 1.25rem;
+      }
+    }
+
+    .hero-actions-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.5s;
+    }
+
+    @media (min-width: 640px) {
+      .hero-actions-container {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+
+    .hero-actions-container .btn {
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .hero-actions-container .btn {
+        width: auto;
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Core Pillars grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 4.5rem;
+      perspective: 1000px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.7s;
+    }
+
+    @media (min-width: 768px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+    }
+
+    .pillar-card {
+      background-color: rgba(var(--card-hsl), var(--card-bg-opacity));
+      border: 1px solid rgba(var(--border-hsl), 0.5);
+      border-radius: 20px;
+      padding: 2.25rem 1.75rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-style: preserve-3d;
+      text-align: center;
+    }
+    
+    html.dark .pillar-card {
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-8px) rotateX(4deg) rotateY(4deg);
+      border-color: rgba(var(--primary-hsl), 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    html.dark .pillar-card:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .pillar-icon-wrapper {
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pillar-card:hover .pillar-icon-wrapper {
+      transform: scale(1.2) rotate(15deg);
+    }
+
+    .pillar-icon-wrapper svg {
+      width: 3rem;
+      height: 3rem;
+      filter: drop-shadow(0 4px 6px rgba(var(--primary-hsl), 0.15));
+    }
+
+    .pillar-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--foreground);
+    }
+
+    .pillar-desc {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--muted-foreground);
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 6rem 1rem;
+      background: linear-gradient(to bottom, var(--background), rgba(var(--card-hsl), 0.4));
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--foreground);
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-description {
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--muted-foreground);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 640px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .feature-card {
+      background-color: rgba(var(--card-hsl), var(--card-bg-opacity));
+      border: 1px solid rgba(var(--border-hsl), 0.5);
+      border-radius: 20px;
+      padding: 2.25rem 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    html.dark .feature-card {
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(var(--primary-hsl), 0.4);
+      box-shadow: 0 20px 40px rgba(var(--primary-hsl), 0.08);
+    }
+
+    .feature-icon-wrapper {
+      margin: 0 auto 1.5rem auto;
+      padding: 1rem;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s ease, background-color 0.3s;
+    }
+
+    .bg-primary-soft { background-color: rgba(var(--primary-hsl), 0.1); }
+    .bg-teal-soft { background-color: rgba(13, 148, 136, 0.1); }
+    .bg-indigo-soft { background-color: rgba(79, 70, 229, 0.1); }
+
+    .feature-card:hover .feature-icon-wrapper {
+      transform: scale(1.15) rotate(360deg);
+    }
+
+    .feature-icon-wrapper svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+    }
+
+    .feature-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--foreground);
+      transition: color 0.3s;
+    }
+
+    .feature-card:hover .feature-title {
+      color: var(--primary);
+    }
+
+    .feature-desc {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--muted-foreground);
+      flex-grow: 1;
+    }
+
+    /* Floating particles in background of features */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.2;
+    }
+
+    /* Footer styling */
+    footer {
+      background-color: rgba(var(--secondary-hsl), 0.3);
+      border-top: 1px solid var(--border);
+      padding: 5rem 1rem 2.5rem 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--foreground);
+      text-decoration: none;
+    }
+
+    .footer-logo svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: var(--primary);
+    }
+
+    .footer-text {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--muted-foreground);
+    }
+
+    .footer-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-flex;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .contact-item svg {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Accessibility screen-reader only styling */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Premium Glassmorphic Modal for Legal Pages */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(3, 7, 18, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background-color: rgba(var(--card-hsl), 0.96);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--foreground);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      background-color: rgba(var(--secondary-hsl), 0.8);
+      color: var(--foreground);
+    }
+
+    .modal-close-btn svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--muted-foreground);
+      scrollbar-width: thin;
+      text-align: left;
+    }
+
+    .modal-body h4 {
+      color: var(--foreground);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .modal-body h4:first-of-type {
+      margin-top: 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 1rem;
+    }
+
+    .modal-body ul {
+      margin-bottom: 1rem;
+      padding-left: 1.25rem;
+    }
+
+    .modal-body li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating glowing background elements -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Header Section -->
+  <header id="main-header">
+    <div class="container header-content">
+      <!-- Logo -->
+      <a href="/" class="logo-link">
+        <svg class="logo-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>BBSNS</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="nav-links">
+        <a href="#main-header" class="nav-link">Home</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="https://app.bbsns.online/register-notary" class="nav-link">Become a Notary</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <!-- Theme Toggle Switch -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+          <!-- Sun Icon -->
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <!-- Moon Icon -->
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+
+        <a href="https://app.bbsns.online/login" class="btn btn-ghost btn-sm" style="display: none;" id="signin-btn-desktop">Sign In</a>
+        <a href="https://app.bbsns.online/signup" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-container">
+        
+        <!-- Floating Icons Card -->
+        <div class="icon-float-wrapper">
+          <div class="floating-icons-card">
+            <div class="floating-icon-item text-emerald">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="floating-icon-item text-teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="floating-icon-item text-indigo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-title">
+          Secure Document Notarization with <span>Blockchain</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="hero-description">
+          Experience the future of document authentication with our blockchain-based notarization system. Secure, transparent, and legally binding document verification at your fingertips.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-actions-container">
+          <a href="https://app.bbsns.online/signup" class="btn btn-lg btn-primary">Get Started</a>
+          <a href="https://app.bbsns.online/register-notary" class="btn btn-lg btn-outline">Register as Notary</a>
+          <a href="https://app.bbsns.online/login" class="btn btn-lg btn-ghost">Sign In</a>
+        </div>
+
+        <!-- Three Pillars Grid -->
+        <div class="pillars-grid">
+          <!-- Pillar 1 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-wrapper text-primary-color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Blockchain Security</h3>
+            <p class="pillar-desc">Immutable records protected by advanced cryptography and decentralized architecture.</p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-wrapper text-teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Legal Compliance</h3>
+            <p class="pillar-desc">Fully compliant with international electronic signature and digital notarization laws.</p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="pillar-card">
+            <div class="pillar-icon-wrapper text-indigo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Instant Verification</h3>
+            <p class="pillar-desc">Real-time verification of document integrity and timestamping anywhere globally.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <!-- Particle Orbs background decoration -->
+      <div class="particle" style="top: 10%; left: 5%; width: 6px; height: 6px; background-color: var(--primary); animation: float 6s ease-in-out infinite;"></div>
+      <div class="particle" style="top: 40%; right: 5%; width: 8px; height: 8px; background-color: #10b981; animation: float 8s ease-in-out infinite-reverse;"></div>
+      <div class="particle" style="bottom: 10%; left: 25%; width: 5px; height: 5px; background-color: #4f46e5; animation: float 5s ease-in-out infinite;"></div>
+
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Powerful <span>Features</span></h2>
+          <p class="section-description">Everything you need for secure document notarization in one comprehensive platform</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper bg-primary-soft text-primary-color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Document Upload</h3>
+            <p class="feature-desc">Securely upload your documents with elegant drag-and-drop functionality. Supports compliant PDF and JPEG formats.</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper bg-teal-soft text-teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Version Control</h3>
+            <p class="feature-desc">Track document versions automatically and maintain an immutable cryptographic history of all changes.</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper bg-indigo-soft text-indigo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Instant Verification</h3>
+            <p class="feature-desc">Verify your document authenticity in milliseconds using absolute smart contract state lookup.</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper bg-primary-soft text-primary-color">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="6"/>
+                <circle cx="18" cy="18" r="4"/>
+                <line x1="8" y1="8" x2="18" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Token System</h3>
+            <p class="feature-desc">Use NTKR utility tokens for highly transparent notarization pricing and seamless secure network interactions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer id="contact">
+    <div class="container footer-grid">
+      
+      <!-- Column 1: Logo & Info -->
+      <div class="footer-col">
+        <a href="/" class="footer-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>BBSNS</span>
+        </a>
+        <p class="footer-text">
+          Blockchain Based Secure Notarization System — The immutable future of secure digital document authentication.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col">
+        <h4 class="footer-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#main-header" class="footer-link">Home</a></li>
+          <li><a href="#features" class="footer-link">Features</a></li>
+          <li><a href="https://app.bbsns.online/tokens" class="footer-link">Smart Contracts</a></li>
+          <li><a href="https://app.bbsns.online/signup" class="footer-link">Get Started</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact Info -->
+      <div class="footer-col">
+        <h4 class="footer-title">Contact Info</h4>
+        <ul class="footer-links">
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>support@bbsns.online</span>
+          </li>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>+1 (555) 123-4567</span>
+          </li>
+          <li class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span style="font-size: 0.8125rem;">123 Blockchain Ave, Tech City</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Legal -->
+      <div class="footer-col">
+        <h4 class="footer-title">Legal</h4>
+        <ul class="footer-links">
+          <li><button class="footer-link legal-trigger" data-doc="privacy">Privacy Policy</button></li>
+          <li><button class="footer-link legal-trigger" data-doc="terms">Terms of Service</button></li>
+          <li><button class="footer-link legal-trigger" data-doc="compliance">Compliance</button></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">
+        © <span id="current-year">2026</span> BBSNS. All rights reserved. Blockchain Based Secure Notarization System.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Premium Glassmorphic Modal for Legal Documents -->
+  <div id="legal-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">Legal Document</h3>
+        <button id="modal-close" class="modal-close-btn" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        <!-- Dynamic content will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Toggle & Scrolling Script -->
+  <script>
+    // Set Year dynamically
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Show Sign In link on desktop only if width is greater than 640px
+    function adjustResponsiveUI() {
+      const signInBtn = document.getElementById('signin-btn-desktop');
+      if (window.innerWidth >= 640) {
+        signInBtn.style.display = 'inline-flex';
+      } else {
+        signInBtn.style.display = 'none';
+      }
+    }
+    window.addEventListener('resize', adjustResponsiveUI);
+    adjustResponsiveUI();
+
+    // Theme Management
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    // Load initial theme from localStorage or system settings
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      htmlElement.classList.remove('dark');
+    } else if (savedTheme === 'dark') {
+      htmlElement.classList.add('dark');
+    } else {
+      // Check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        htmlElement.classList.add('dark');
+      } else {
+        htmlElement.classList.remove('dark');
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        htmlElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        htmlElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Header scroll background effect
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // --- Interactive Legal Modals Logic ---
+    const modal = document.getElementById('legal-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+    const legalTriggers = document.querySelectorAll('.legal-trigger');
+
+    // Legal Document Content Database
+    const legalDocs = {
+      privacy: {
+        title: "Privacy Policy",
+        content: `
+          <p><strong>Last Updated: May 30, 2026</strong></p>
+          <p>At BBSNS (Blockchain Based Secure Notarization System), we prioritize protecting your privacy and secure data ownership. This policy outlines how we handle data within our decentralized architecture.</p>
+          
+          <h4>1. Client-Side Cryptographic Security</h4>
+          <p>BBSNS is built on a privacy-first foundation. When you upload a document for notarization, all hashing processes are conducted <strong>entirely client-side</strong> in your browser using secure cryptographic protocols (SHA-256). The actual content of your files is <strong>never</strong> transmitted to or stored on the public blockchain.</p>
+          
+          <h4>2. Information We Collect</h4>
+          <ul>
+            <li><strong>Public Wallet Addresses:</strong> Cryptographic signatures from web3 providers (e.g., Metamask) to authenticate ownership and sign notarizations.</li>
+            <li><strong>Transaction Hashes:</strong> Decentralized network record transaction details to confirm timestamping finality.</li>
+            <li><strong>System Metadata:</strong> Standard, non-identifiable telemetry (such as browser type and upload intents) to optimize client execution.</li>
+          </ul>
+
+          <h4>3. Third-Party and Cloud Services</h4>
+          <p>Uploaded documents, if requested for temporary secure storage, are transferred to encrypted private AWS S3 buckets using transient, single-use Signed URLs. They are protected under zero-knowledge guidelines and are accessible exclusively via secure user tokens.</p>
+          
+          <h4>4. Your Choices & Decentralized Erasure</h4>
+          <p>Because only cryptographic hashes are recorded on the public ledger, your personal identification details are never permanently stored on-chain, satisfying strict data isolation and security standards globally.</p>
+        `
+      },
+      terms: {
+        title: "Terms of Service",
+        content: `
+          <p><strong>Last Updated: May 30, 2026</strong></p>
+          <p>Welcome to BBSNS. By accessing or using our decentralized notarization services, you agree to comply with and be bound by the following terms.</p>
+          
+          <h4>1. Acceptance of Terms</h4>
+          <p>By connecting a Web3 wallet (e.g., MetaMask) or initiating a document upload, you agree to these Terms of Service. If you do not agree, please do not use the application.</p>
+          
+          <h4>2. Notarization and Smart Contract Execution</h4>
+          <p>BBSNS provides cryptographic timestamping and document integrity verification via audited smart contracts on public, EVM-compatible ledgers. You acknowledge that blockchain records are permanent, immutable, and cannot be deleted or reversed once confirmed.</p>
+          
+          <h4>3. Wallet Security & Signatures</h4>
+          <p>You are solely responsible for protecting your wallet's private keys and validating all signing requests. BBSNS will never ask for your seed phrase. All transactions signed by your wallet are considered authorized by you.</p>
+
+          <h4>4. Acceptable Use Policies</h4>
+          <p>You certify that you hold legal ownership, license, or explicit authority over all files uploaded to BBSNS. You agree not to upload materials that violate copyrights, trademarks, or international regulations.</p>
+
+          <h4>5. Payment, Tokens & Fees</h4>
+          <p>Notarization actions require transaction fees executed using NTKR utility tokens. All smart contract executions, token usages, and gas fees are permanent and strictly non-refundable.</p>
+        `
+      },
+      compliance: {
+        title: "Compliance & Standards",
+        content: `
+          <p><strong>Last Updated: May 30, 2026</strong></p>
+          <p>BBSNS is built to adhere to leading digital notary laws and cryptographic authenticity standards worldwide.</p>
+          
+          <h4>1. Digital Signature Frameworks</h4>
+          <p>BBSNS's decentralized notarization architecture complies with standard regulatory frameworks for electronic and digital signatures, including:</p>
+          <ul>
+            <li><strong>US ESIGN Act:</strong> The federal Electronic Signatures in Global and National Commerce Act.</li>
+            <li><strong>EU eIDAS Regulation:</strong> Meets standards for electronic timestamps and qualified electronic signatures (QES).</li>
+            <li><strong>Uniform Electronic Transactions Act (UETA):</strong> Providing full legal parity to on-chain cryptographic stamps.</li>
+          </ul>
+
+          <h4>2. Immutable Cryptographic Proofs</h4>
+          <p>Each notarization generates an absolute cryptographic audit trail consisting of a secure SHA-256 hash, an on-chain blockchain block number, and an authoritative UTC timestamp. This provides legally viable proof of existence and non-repudiation.</p>
+
+          <h4>3. GDPR compliance (Data Minimization)</h4>
+          <p>BBSNS strictly adheres to General Data Protection Regulation (GDPR) data minimization standards. Personal identifying details and document payloads are never recorded onto the public public blockchain. Verification relies entirely on mathematical SHA-256 matches, ensuring "the right to be forgotten" is structurally preserved.</p>
+
+          <h4>4. Notary Role Governance</h4>
+          <p>All active notary accounts on the platform undergo automated cryptographic validation of credential states and must maintain identity parameters as active. Any role mismatch automatically suspends on-chain approval permissions.</p>
+        `
+      }
+    };
+
+    // Open Modal Function
+    function openModal(docKey) {
+      const doc = legalDocs[docKey];
+      if (!doc) return;
+
+      modalTitle.textContent = doc.title;
+      modalBody.innerHTML = doc.content;
+      
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Lock background scroll
+    }
+
+    // Close Modal Function
+    function closeModal() {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = ''; // Restore background scroll
+    }
+
+    // Event Listeners for Legal Triggers
+    legalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const docKey = trigger.getAttribute('data-doc');
+        openModal(docKey);
+      });
+    });
+
+    // Close button click
+    modalClose.addEventListener('click', closeModal);
+
+    // Overlay click (closes modal if clicking outside the card)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // ESC key close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

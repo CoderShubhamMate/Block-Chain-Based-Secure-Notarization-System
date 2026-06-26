@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: ""
+
+localResources:
+  collections:
+    - ..\bbsns_master.postman_collection.json
+    - ..\backend\scripts\audit\json\bbsns_crud.postman_collection.json
+    - ..\deployment_validation\scripts\audit\json\bbsns_crud.postman_collection.json
