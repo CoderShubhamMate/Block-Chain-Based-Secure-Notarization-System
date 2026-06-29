@@ -165,6 +165,12 @@ p_config.json
 *.secret
 *.secrets
 
+# ✅ EXCEPTIONS — Always track template/example files
+!*.example.json
+!*.example
+!.env.example
+!**/.env.example
+
 # Database Dumps
 *.dump
 notarydb_backup.dump
