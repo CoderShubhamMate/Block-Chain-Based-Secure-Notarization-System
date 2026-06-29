@@ -1,0 +1,22 @@
+{
+  "_comment": "Copy this file to config.json for local overrides. In production, config is stored in PostgreSQL and managed via the Admin panel.",
+  "_docs": "This file is loaded by ConfigService as a fallback only if the database has no config row. Populate with your deployed contract addresses after running the deploy script.",
+
+  "config_version": 1,
+  "rpcUrl": "https://data-seed-prebsc-1-s1.binance.org:8545",
+  "chainId": 97,
+
+  "contracts": {
+    "ntk": "0xYOUR_NTK_CONTRACT_ADDRESS_HERE",
+    "ntkr": "0xYOUR_NTKR_CONTRACT_ADDRESS_HERE",
+    "multisig": "0xYOUR_MULTISIG_CONTRACT_ADDRESS_HERE",
+    "genesisNft": "0xYOUR_GENESIS_NFT_ADDRESS_HERE",
+    "notaryRegistry": "0xYOUR_NOTARY_REGISTRY_ADDRESS_HERE",
+    "documentRegistry": "0xYOUR_DOCUMENT_REGISTRY_ADDRESS_HERE",
+    "genesisActivation": "0xYOUR_GENESIS_ACTIVATION_ADDRESS_HERE"
+  },
+
+  "webAppUrl": "http://localhost:3000",
+  "apiBaseUrl": "http://localhost:5000",
+  "remoteAuthUrl": "http://localhost:3000"
+}
