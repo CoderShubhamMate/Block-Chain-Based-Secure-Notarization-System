@@ -150,32 +150,79 @@ hardhat.config.js.locked
 Thumbs.db
 
 # --- Security & Hygiene Exclusions ---
+# Private Keys & Certificates (NEVER commit these)
 *.pem
 *.key
 *.pub
+*.p12
+*.pfx
+bbsns-keys.pem
+
+# Secret & Config Files (use *.example.json instead)
+secrets.json
+config.json
+p_config.json
+*.secret
+*.secrets
+
+# ✅ EXCEPTIONS — Always track template/example files
+!*.example.json
+!*.example
+!.env.example
+!**/.env.example
+
+# Database Dumps
 *.dump
+notarydb_backup.dump
+
+# SQL Files (may contain real data)
 *.sql
+
+# Archives & Binaries
 *.zip
 *.tar.gz
+*.tgz
+*.7z
+*.rar
+**/dist-portable
+**/temp_asar_extract
+**/*.dll
+**/*.exe
+**/*.asar
+
+# Build Artifacts (large files, not needed in git)
+next-build.zip
+next_build.tar.gz
+next_build_new.tar.gz
+next_build_prod.tar.gz
+**/next-build.zip
+**/next_build*.tar.gz
+
+# Development Scratch & Debug Files
 tmp/
+tmp2/
+scratch/
 dist-electron/
 dist-vite/
 e2e_test.txt
+log.txt
+dump.txt
+*.txt.bak
+*.bak
+
+# Known Debug Scripts (not part of production)
 backend/set_debug_trust.js
 backend/surgical_db_patch.js
 backend/test_*.js
 backend/verify_*.js
 backend/verify_*.sql
-backend/update_db.js
 backend_stability_v2.zip
-notarydb_backup.dump
 remote-auth.tar.gz
 web-app-v*.tar.gz
 web-app.tar.gz
-**/dist-portable
-**/temp_asar_extract
-**/*.dll
-**/*.exe
+
+# Deployment Secrets (use deployments.example.json instead)
+contracts/deployments.json
 
 # --- AI Agents & IDE Exclusions ---
 .agents/
