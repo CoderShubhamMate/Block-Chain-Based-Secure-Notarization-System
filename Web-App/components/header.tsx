@@ -52,7 +52,7 @@ export function Header() {
             { href: "/", label: "Home" },
             { href: "/#features", label: "Features" },
             { href: "/register-notary", label: "Become a Notary" },
-            { href: "/#about", label: "About" },
+            { href: "/about", label: "About" },
           ].map((item, index) => (
             <motion.div
               key={item.href}

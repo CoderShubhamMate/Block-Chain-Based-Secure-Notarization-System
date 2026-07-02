@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Shield, Mail, Phone, MapPin } from "lucide-react"
+import { Shield, Mail, MapPin } from "lucide-react"
 
 export function Footer() {
   return (
@@ -28,7 +28,7 @@ export function Footer() {
               >
                 Features
               </Link>
-              <Link href="#about" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+              <Link href="/about" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
               </Link>
               <Link href="/tokens" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -48,12 +48,8 @@ export function Footer() {
                 <span>support@bbsns.online</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>123 Blockchain Ave, Tech City, TC 12345</span>
+                <span>Mumbai, Maharashtra, India</span>
               </div>
             </div>
           </div>
@@ -61,21 +57,9 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-foreground">Legal</h3>
             <div className="space-y-2">
-              <Link
-                href="/privacy"
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="block text-sm text-muted-foreground hover:text-primary transition-colors">
-                Terms of Service
-              </Link>
-              <Link
-                href="/compliance"
-                className="block text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Compliance
-              </Link>
+              <p className="text-sm text-muted-foreground">
+                Privacy Policy, Terms of Service, and Compliance documents are being prepared and will be published soon.
+              </p>
             </div>
           </div>
         </div>
