@@ -7,7 +7,8 @@
     "backend",
     "Web-App",
     "Frontend Desktop Application",
-    "contracts"
+    "contracts",
+    "creator-portfolio"
   ],
   "scripts": {
     "dev:backend": "npm run dev --workspace=backend",

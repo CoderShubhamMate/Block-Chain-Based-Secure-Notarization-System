@@ -14,6 +14,11 @@ function HomeContent() {
   useEffect(() => {
     // 🛡️ [CONSOLIDATION] Remote auth logic migrated to auth.bbsns.online
     // No legacy redirects needed in Web-App home content.
+    
+    // Redirect legacy #about hash route to the new /about page
+    if (typeof window !== "undefined" && window.location.hash === "#about") {
+      router.push("/about")
+    }
   }, [searchParams, router])
 
   return (
